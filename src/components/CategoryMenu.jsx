@@ -17,6 +17,7 @@ import {
   Star,
   Map,
   Send,
+  GraduationCap,
 } from "lucide-react";
 import { colors, affiliations, mainCategories } from "../data/navigation";
 

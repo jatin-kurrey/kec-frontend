@@ -63,7 +63,7 @@ const GalleryPage = () => {
   const getImageUrl = (url) => {
     if (!url) return 'https://images.unsplash.com/photo-1514525253361-bee438d59ef7?q=80&w=1000';
     if (url.startsWith('http')) return url;
-    const baseUrl = 'http://localhost:8080'; // Fallback to common dev port
+    const baseUrl = contentService.getBaseUrl ? contentService.getBaseUrl() : 'http://localhost:8080';
     return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
   };
 

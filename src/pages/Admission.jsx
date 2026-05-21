@@ -480,12 +480,42 @@ const AdmissionKEC = () => {
           {/* Apply Now Form */}
           {activeTab === "apply" && (
             <div>
+              {/* Premium Super 40 CTA Banner */}
+              <div className="mb-12 bg-gradient-to-br from-indigo-900 via-blue-900 to-indigo-950 text-white rounded-2xl p-6 md:p-8 shadow-xl border border-indigo-500/20 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full -translate-y-32 translate-x-32 blur-2xl"></div>
+                <div className="absolute -left-16 -bottom-16 w-48 h-48 bg-blue-500/10 rounded-full blur-xl"></div>
+                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="text-center md:text-left">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-yellow-400 text-blue-950 uppercase tracking-widest mb-3 animate-pulse">
+                      Special Opportunity
+                    </span>
+                    <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+                      Super 40 Entrance Evaluation
+                    </h3>
+                    <p className="text-blue-200 mt-2 max-w-xl text-sm md:text-base leading-relaxed">
+                      Are you aspiring for elite technical education? Register and participate in our **Super 40 Entrance Program** to secure up to 100% scholarship, specialized mentorship, and advanced career placement training.
+                    </p>
+                  </div>
+                  <div className="flex-shrink-0 w-full md:w-auto">
+                    <a
+                      href="https://super40-frontend.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full md:w-auto text-center inline-flex items-center justify-center bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-blue-950 font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
+                    >
+                      Enter Exam Portal
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-blue-900 mb-2">
-                  Apply Now
+                  General B.Tech Application
                 </h2>
                 <p className="text-blue-700">
-                  Start your journey with Krishna Engineering College
+                  Fill out the registration details below to apply for general admissions
                 </p>
               </div>
               <form className="grid grid-cols-1 md:grid-cols-2 gap-6">

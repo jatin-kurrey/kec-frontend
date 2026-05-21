@@ -181,6 +181,13 @@ export const mainCategories = [
         description: "Financial assistance",
         color: colors.primary,
       },
+      {
+        name: "Super 40 Entrance Portal",
+        path: "https://super40-frontend.vercel.app/",
+        icon: Award,
+        description: "Take the entrance exam online",
+        color: colors.primary,
+      },
     ],
   },
   {

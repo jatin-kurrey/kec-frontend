@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://krishnacollege.edu/</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://krishnacollege.edu/about</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://krishnacollege.edu/admission</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://krishnacollege.edu/placement</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://krishnacollege.edu/departments</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+</urlset>

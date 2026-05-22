@@ -231,6 +231,9 @@ export const adminAccountService = {
   getAll: () => api.get('admin/accounts'),
   create: (data) => api.post('admin/accounts', data),
   delete: (id) => api.delete(`admin/accounts/${id}`),
+  updatePassword: (id, password) => api.put(`admin/accounts/${id}/password`, { new_password: password }),
+  changeSelfPassword: (currentPassword, newPassword) => api.put('admin/profile/password', { current_password: currentPassword, new_password: newPassword }),
+  init: (username) => api.post('auth/init', { username }),
 };
 
 export default api;

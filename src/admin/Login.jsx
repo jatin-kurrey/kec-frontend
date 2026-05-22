@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, ShieldCheck, ArrowRight } from 'lucide-react';
-import { authService } from '../api';
+import { Lock, User, ShieldCheck, ArrowRight, Key, Sparkles, AlertCircle } from 'lucide-react';
+import { authService, adminAccountService } from '../api';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -9,6 +9,19 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Silent database seeding/initialization check on mount
+    const initDatabase = async () => {
+      try {
+        await adminAccountService.init('admin');
+      } catch (err) {
+        // Ignored if already initialized
+        console.log('Database initialization check complete');
+      }
+    };
+    initDatabase();
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -43,15 +56,20 @@ const Login = () => {
     }
   };
 
+  const handleAutofill = () => {
+    setUsername('admin');
+    setPassword('kec_admin_2026');
+  };
+
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-6 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-blue-600/5 rounded-full blur-[120px]"></div>
         <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-indigo-600/5 rounded-full blur-[120px]"></div>
       </div>
 
-      <div className="w-full max-w-[440px] relative z-10">
+      <div className="w-full max-w-[440px] relative z-10 space-y-6">
         <div className="bg-white border border-slate-200 p-10 md:p-12 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-sm">
           <div className="text-center mb-10">
             <div className="w-20 h-20 bg-blue-900 rounded-[1.5rem] flex items-center justify-center mx-auto mb-8 shadow-xl shadow-blue-900/10 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
@@ -122,8 +140,40 @@ const Login = () => {
             </p>
           </div>
         </div>
+
+        {/* Premium Credentials Panel */}
+        <div className="bg-slate-900/5 border border-slate-200/60 p-6 rounded-[2rem] backdrop-blur-sm space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <Key className="w-4 h-4 text-blue-900" />
+              <span className="text-xs font-black uppercase text-slate-700 tracking-wider">Demo / Test Access</span>
+            </div>
+            <button
+              type="button"
+              onClick={handleAutofill}
+              className="flex items-center gap-1.5 px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded-full text-[11px] font-black tracking-wider uppercase transition-all duration-300 shadow-md shadow-blue-900/10 active:scale-95"
+            >
+              <Sparkles className="w-3 h-3" />
+              <span>Autofill Super Admin</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 text-xs font-semibold">
+            <div className="bg-white/80 border border-slate-100 p-3.5 rounded-2xl">
+              <p className="text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-1">Super Admin Role</p>
+              <p className="text-slate-800 font-bold">Username: <span className="font-black text-blue-900">admin</span></p>
+              <p className="text-slate-800 font-bold">Password: <span className="font-black text-blue-900">kec_admin_2026</span></p>
+            </div>
+            <div className="bg-white/80 border border-slate-100 p-3.5 rounded-2xl flex flex-col justify-center">
+              <p className="text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-1">Gallery Admin Role</p>
+              <p className="text-slate-500 leading-normal text-[11px]">
+                Controlled and managed directly under KEC Settings dashboard.
+              </p>
+            </div>
+          </div>
+        </div>
         
-        <p className="mt-8 text-center text-slate-400 text-sm font-medium">
+        <p className="text-center text-slate-400 text-sm font-medium">
           &copy; 2026 Krishna Engineering College. All rights reserved.
         </p>
       </div>

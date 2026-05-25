@@ -1,474 +1,474 @@
 {
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/vite.config.js": {
-    "mtime": 1778230042.9649105,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/vite.config.js": {
+    "mtime": 1779698942.1609545,
     "hash": "44ffaa62c96cf253bea15474d3b594e8"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/eslint.config.js": {
-    "mtime": 1778230042.9232814,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/eslint.config.js": {
+    "mtime": 1779698942.100054,
     "hash": "c74f992e98b770639446adb1156ef66d"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/main.jsx": {
-    "mtime": 1778833898.844007,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/main.jsx": {
+    "mtime": 1779698942.158641,
     "hash": "bdac33e749f7b954c98bfa662dda0d67"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/App.jsx": {
-    "mtime": 1779099320.424726,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/App.jsx": {
+    "mtime": 1779698942.154321,
     "hash": "5f81a0f62322f9d1ca8ac3c35cce86b3"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/useFadeInScroll.js": {
-    "mtime": 1778230042.964811,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/useFadeInScroll.js": {
+    "mtime": 1779698942.160864,
     "hash": "10e77483ab2fe2116e3d7d20844ec77a"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/AdminLayout.jsx": {
-    "mtime": 1779099290.965381,
-    "hash": "b8f292c3351fdb7b03c1dc24178d74ef"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/AdminLayout.jsx": {
+    "mtime": 1779699154.5387268,
+    "hash": "1095887b786a2fcd5d664ab0da060d8d"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/GalleryAdminLogin.jsx": {
-    "mtime": 1779099281.4199636,
-    "hash": "9ebe4f384ea931df4956c09160be1ca8"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/GalleryAdminLogin.jsx": {
+    "mtime": 1779698942.154716,
+    "hash": "1c96b94e23a693f1fdd2efa78346061b"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/GalleryAdminLayout.jsx": {
-    "mtime": 1779099274.7286122,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/GalleryAdminLayout.jsx": {
+    "mtime": 1779698942.1546233,
     "hash": "9c5bc2f467b9f43280114190960a7531"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/Dashboard.jsx": {
-    "mtime": 1779099054.4079723,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/Dashboard.jsx": {
+    "mtime": 1779698942.1545486,
     "hash": "53a0dedd923099818f6301b5e4085318"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/Login.jsx": {
-    "mtime": 1779099300.29171,
-    "hash": "8072d6dc8725c52391dc5a82e15f8341"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/Login.jsx": {
+    "mtime": 1779698942.1547935,
+    "hash": "f04ade868bf7f216398f36f014a5ac73"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/components/SubmissionAnalytics.jsx": {
-    "mtime": 1778835247.2971606,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/components/SubmissionAnalytics.jsx": {
+    "mtime": 1779698942.1549027,
     "hash": "8d0ad5833e45e469345945fced061959"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/pages/ResearchManager.jsx": {
-    "mtime": 1778843596.297718,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/pages/ResearchManager.jsx": {
+    "mtime": 1779698942.1563127,
     "hash": "8c526a37478f137e2212878eaae2db10"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/pages/FacilityManager.jsx": {
-    "mtime": 1778843228.646479,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/pages/FacilityManager.jsx": {
+    "mtime": 1779698942.155384,
     "hash": "9f8ad7bbfd69ea6465cc17a0de67eb69"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/pages/DepartmentManager.jsx": {
-    "mtime": 1778843094.8116903,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/pages/DepartmentManager.jsx": {
+    "mtime": 1779698942.1552756,
     "hash": "3fc0ee509d3d701dbacd6957fd01656a"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/pages/LeadershipManager.jsx": {
-    "mtime": 1778837096.1794317,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/pages/LeadershipManager.jsx": {
+    "mtime": 1779698942.1556299,
     "hash": "55dfbecc30a282242e8d668acab0db57"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/pages/AdminManager.jsx": {
-    "mtime": 1779099146.3676488,
-    "hash": "09dda8c4ad9e5951f6c360962888bad4"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/pages/AdminManager.jsx": {
+    "mtime": 1779698942.1550045,
+    "hash": "b82671fecc35e50c9d1f8368cabde2aa"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/pages/CourseManager.jsx": {
-    "mtime": 1778843624.2065084,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/pages/CourseManager.jsx": {
+    "mtime": 1779698942.1552067,
     "hash": "59b6ce95626ff2b077e6c230d70e3148"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/pages/AdmissionManager.jsx": {
-    "mtime": 1778843716.831588,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/pages/AdmissionManager.jsx": {
+    "mtime": 1779698942.155092,
     "hash": "163d391c89ec1378237bb07b521dc4d9"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/pages/FacultyManager.jsx": {
-    "mtime": 1778843036.0839498,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/pages/FacultyManager.jsx": {
+    "mtime": 1779698942.155456,
     "hash": "7ee614ba1bc7eaa9744017cb54cd5e99"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/admin/pages/GalleryManager.jsx": {
-    "mtime": 1778843649.8941488,
-    "hash": "2b57b27e87bc3a8c4a18c9b5191a9976"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/admin/pages/GalleryManager.jsx": {
+    "mtime": 1779698942.1555498,
+    "hash": "644c2e3947c9bb56a333ef4752f39338"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/Herosection.jsx": {
-    "mtime": 1778230042.9609764,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/Herosection.jsx": {
+    "mtime": 1779698942.1572924,
     "hash": "ae3db69dc2ab2cf73664b94f31970257"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/PlacementPartners.jsx": {
-    "mtime": 1778230042.9614232,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/PlacementPartners.jsx": {
+    "mtime": 1779698942.1577585,
     "hash": "ed3ae818342a6a2f3ed78c7412005810"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/Footer.jsx": {
-    "mtime": 1778230042.960867,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/Footer.jsx": {
+    "mtime": 1779698942.1572208,
     "hash": "8745f0cf82e91e34ab11c7579fe926c6"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/CategoryMenu.jsx": {
-    "mtime": 1779093061.4676445,
-    "hash": "56386c9e8c07a8230e9ad75e589bd02e"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/CategoryMenu.jsx": {
+    "mtime": 1779698942.1569664,
+    "hash": "d4503b20b238cabd85245e8bb7a53ca0"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/UniversitySection.jsx": {
-    "mtime": 1778230042.9618404,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/UniversitySection.jsx": {
+    "mtime": 1779698942.1581302,
     "hash": "b59ac3b6afd1ab95c65b124434c62fac"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/PageLoader.jsx": {
-    "mtime": 1778230042.961336,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/PageLoader.jsx": {
+    "mtime": 1779698942.1576743,
     "hash": "43e815e1c43ef7b24117f563669b1901"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/Topbar.jsx": {
-    "mtime": 1778230042.9617777,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/Topbar.jsx": {
+    "mtime": 1779698942.1580603,
     "hash": "d26c473b84e2478b0da6f841569a5080"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/Leadership.jsx": {
-    "mtime": 1778840577.4709144,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/Leadership.jsx": {
+    "mtime": 1779698942.1573796,
     "hash": "96217b44842a3bb1f85675fc772355e7"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/CoursesOffered.jsx": {
-    "mtime": 1778840588.057376,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/CoursesOffered.jsx": {
+    "mtime": 1779698942.1571338,
     "hash": "d88c3f4b45a53bcb01e0c96c64eadfbe"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/Loader.jsx": {
-    "mtime": 1778230042.96113,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/Loader.jsx": {
+    "mtime": 1779698942.1574636,
     "hash": "afd8b4989a399f0acf6969a82e65f272"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/CompaniesVisitedTable.jsx": {
-    "mtime": 1778230042.9606943,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/CompaniesVisitedTable.jsx": {
+    "mtime": 1779698942.1570513,
     "hash": "0e3fb2e6196e3459136736efff5987ed"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/alumni.jsx": {
-    "mtime": 1778843471.1461148,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/alumni.jsx": {
+    "mtime": 1779698942.158214,
     "hash": "09be2ff0e4af5924d114f213009f279b"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/AboutSection.jsx": {
-    "mtime": 1778230042.9603329,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/AboutSection.jsx": {
+    "mtime": 1779698942.1567178,
     "hash": "bd821b7d644411896a6cd0617782f563"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/ScrollToTop.jsx": {
-    "mtime": 1778230042.9615402,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/ScrollToTop.jsx": {
+    "mtime": 1779698942.1578805,
     "hash": "4997cdca538db354c87eae15a5e44987"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/Navbar.jsx": {
-    "mtime": 1778230042.961205,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/Navbar.jsx": {
+    "mtime": 1779698942.157534,
     "hash": "aab08e807892633fb603ea6ddc529bdd"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/AchievementsSection.jsx": {
-    "mtime": 1778230042.960499,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/AchievementsSection.jsx": {
+    "mtime": 1779698942.15688,
     "hash": "b2f5a2e1641bb623af0a2b3118af00c7"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/SkillDevelopment.jsx": {
-    "mtime": 1778230042.9616294,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/SkillDevelopment.jsx": {
+    "mtime": 1779698942.1579666,
     "hash": "26ebec64fdc278c7cc9ba94c410d94d1"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/NoticeBoard.jsx": {
-    "mtime": 1778840600.2350926,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/NoticeBoard.jsx": {
+    "mtime": 1779698942.157616,
     "hash": "f5eba08106aace5c71d14b1d8f39fc27"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/SEO.jsx": {
-    "mtime": 1778230042.961484,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/SEO.jsx": {
+    "mtime": 1779698942.1578217,
     "hash": "849a1296e7e09fc171ad9bb74669000f"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/components/AchievementsMarquee.jsx": {
-    "mtime": 1778230042.9604082,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/components/AchievementsMarquee.jsx": {
+    "mtime": 1779698942.1567965,
     "hash": "4b9cfb2ffd098f7a9d4a892ced988f51"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/layouts/Layout.jsx": {
-    "mtime": 1778230042.9622452,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/layouts/Layout.jsx": {
+    "mtime": 1779698942.1585913,
     "hash": "8efbf8b88e5e1d8ad592278818bf4d2e"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/api/index.js": {
-    "mtime": 1779098480.822438,
-    "hash": "7b4d523328718ad3e83395d74e549f3a"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/api/index.js": {
+    "mtime": 1779698942.1564572,
+    "hash": "278cf9d2d9f6745f257e05bfb945f2f7"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/data/navigation.js": {
-    "mtime": 1779098882.146678,
-    "hash": "ff1fefba6743ad0fcf57856b33d9995c"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/data/navigation.js": {
+    "mtime": 1779698942.1584344,
+    "hash": "db8ec47045074e67487a98d502575557"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/data/departments.js": {
-    "mtime": 1778230042.9620326,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/data/departments.js": {
+    "mtime": 1779698942.1583586,
     "hash": "172c7c666c781d254988c7b910ec4931"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/EventComponent.jsx": {
-    "mtime": 1778838938.1728587,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/EventComponent.jsx": {
+    "mtime": 1779698942.1596882,
     "hash": "703858e776fbd8c1205d99de49a4176a"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/GalleryPage.jsx": {
-    "mtime": 1778838988.5444584,
-    "hash": "b4550b1cf5ecf1586da42ff944473ec6"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/GalleryPage.jsx": {
+    "mtime": 1779698942.1599844,
+    "hash": "f358f10452d590bd89ac80d1387af762"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Faculty.jsx": {
-    "mtime": 1778838982.703154,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Faculty.jsx": {
+    "mtime": 1779698942.15983,
     "hash": "e4a0d06afd7c3aac44ac91d883d70e9c"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/EV.jsx": {
-    "mtime": 1778230042.9632955,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/EV.jsx": {
+    "mtime": 1779698942.15962,
     "hash": "9697915871887db81de7d64527cf8eb2"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Drone.jsx": {
-    "mtime": 1778230394.6356292,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Drone.jsx": {
+    "mtime": 1779698942.159542,
     "hash": "34de89fd7177d2fc50fbf1fce4987f7a"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/ContactUs.jsx": {
-    "mtime": 1778230042.96289,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/ContactUs.jsx": {
+    "mtime": 1779698942.159222,
     "hash": "963942012185a86ca119d7f2f382a6be"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Placement.jsx": {
-    "mtime": 1778838641.1580415,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Placement.jsx": {
+    "mtime": 1779698942.1605604,
     "hash": "52c949a9ffa03d10369935baa12b20b4"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Notice.jsx": {
-    "mtime": 1778840534.7395513,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Notice.jsx": {
+    "mtime": 1779698942.160492,
     "hash": "a1dcb29fb3b46afa873b83b53405eab5"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/About.jsx": {
-    "mtime": 1778230042.962426,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/About.jsx": {
+    "mtime": 1779698942.1587436,
     "hash": "38a8a21cb86e3b799c9e4fb45af1c077"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/NotFound.jsx": {
-    "mtime": 1778230042.9642162,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/NotFound.jsx": {
+    "mtime": 1779698942.1604102,
     "hash": "9d89b2d2be6617165bdd291624483237"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Infrastructure.jsx": {
-    "mtime": 1778230042.9640572,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Infrastructure.jsx": {
+    "mtime": 1779698942.1602807,
     "hash": "e337517d3340f9caf5609b1af39d0279"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/AlumniPage.jsx": {
-    "mtime": 1778838654.2567158,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/AlumniPage.jsx": {
+    "mtime": 1779698942.1589952,
     "hash": "d1ec894a1c16346ea76a3183a2dfaf04"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Coding.jsx": {
-    "mtime": 1778230042.96282,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Coding.jsx": {
+    "mtime": 1779698942.1591525,
     "hash": "c32a1704bfccae317474b70fc20e1c61"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/PressMediaPage.jsx": {
-    "mtime": 1778838646.73666,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/PressMediaPage.jsx": {
+    "mtime": 1779698942.1606538,
     "hash": "797cca144c137ac3d611c5565de40e1c"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Hod.jsx": {
-    "mtime": 1778495614.3548641,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Hod.jsx": {
+    "mtime": 1779698942.1601534,
     "hash": "de3f2eea9eec283571112396cae70edc"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Admission.jsx": {
-    "mtime": 1778834101.3264682,
-    "hash": "0853977b2d367f91c3f2620a2f478754"
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Admission.jsx": {
+    "mtime": 1779698942.1588218,
+    "hash": "6de5385d74969cf6456e54a0b4624dc9"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/PrincipalMessage.jsx": {
-    "mtime": 1778496875.5851054,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/PrincipalMessage.jsx": {
+    "mtime": 1779698942.160734,
     "hash": "6f2530be2a6dc9a75a2289aa3d6fb578"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/FastCharging.jsx": {
-    "mtime": 1778230042.9636545,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/FastCharging.jsx": {
+    "mtime": 1779698942.159907,
     "hash": "a966d699daa7c8babb19c78aa0478593"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Facilities.jsx": {
-    "mtime": 1778834091.7805164,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Facilities.jsx": {
+    "mtime": 1779698942.1597576,
     "hash": "68b801f1d57467e9ce5fb3d7949197e6"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/MissionVision.jsx": {
-    "mtime": 1778230042.964135,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/MissionVision.jsx": {
+    "mtime": 1779698942.16035,
     "hash": "8cf330cbe62949a6113b64f4035c4802"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Research.jsx": {
-    "mtime": 1778833989.7322571,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Research.jsx": {
+    "mtime": 1779698942.160804,
     "hash": "cf51cbd7d07e91650e0ca8dc43a6c339"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/AffiliationAccreditation.jsx": {
-    "mtime": 1778230042.9625897,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/AffiliationAccreditation.jsx": {
+    "mtime": 1779698942.1589234,
     "hash": "8cbdfed84a68b15fb653c970ec8aaa93"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/ApplyNow.jsx": {
-    "mtime": 1778230042.9627488,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/ApplyNow.jsx": {
+    "mtime": 1779698942.1590621,
     "hash": "9ae9f8f11792fa90c3b4ba76f79263fd"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Courses.jsx": {
-    "mtime": 1778833997.8608057,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Courses.jsx": {
+    "mtime": 1779698942.1592941,
     "hash": "cf8b4e7ae67045b8cc25bce9e4a97560"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/DepartmentDetails.jsx": {
-    "mtime": 1778838914.6555002,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/DepartmentDetails.jsx": {
+    "mtime": 1779698942.1593668,
     "hash": "a87292e6981b6199f62c3deda94e99af"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Governance.jsx": {
-    "mtime": 1778838993.912232,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Governance.jsx": {
+    "mtime": 1779698942.1600718,
     "hash": "51e4ba9149ac56cae2b59f79bdd7d895"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/DepartmentsPage.jsx": {
-    "mtime": 1778833964.2828143,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/DepartmentsPage.jsx": {
+    "mtime": 1779698942.1594489,
     "hash": "cefd2ae321c201b6b83ca5644aaba267"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/pages/Home.jsx": {
-    "mtime": 1779098747.1625078,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/pages/Home.jsx": {
+    "mtime": 1779698942.1602085,
     "hash": "52c4f7d91dba431872919b3fdec37629"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/index.html": {
-    "mtime": 1778230042.927401,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/index.html": {
+    "mtime": 1779698942.1186624,
     "hash": "6a06c6fa489fa4c09b6c789bd73af757"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/future_work.md": {
-    "mtime": 1778230042.923441,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/future_work.md": {
+    "mtime": 1779698942.1002662,
     "hash": "f0b24070fb29f4ec846f3d44e43173cd"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/README.md": {
-    "mtime": 1778230042.9211953,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/README.md": {
+    "mtime": 1779698942.0976002,
     "hash": "a310fedf2f880561dc04aecc83f92be4"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/backend.md": {
-    "mtime": 1778230042.9212732,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/backend.md": {
+    "mtime": 1779698942.0977495,
     "hash": "f3a628865587d75db6085d7b5de80527"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/features.md": {
-    "mtime": 1778230042.9233685,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/features.md": {
+    "mtime": 1779698942.1001444,
     "hash": "adeb24a9b3a239366d27acd10a4188fd"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/client_report.md": {
-    "mtime": 1778230042.9213428,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/client_report.md": {
+    "mtime": 1779698942.0978785,
     "hash": "a788c442b31fbd661f2ee1d811194e7e"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/robots.txt": {
-    "mtime": 1778230042.9598293,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/robots.txt": {
+    "mtime": 1779698942.1540265,
     "hash": "bcd9da77e695e637c49059ab81d5440e"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/lighthouse_report.pdf": {
-    "mtime": 1778230042.9282367,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/lighthouse_report.pdf": {
+    "mtime": 1779698942.120216,
     "hash": "e67613832a5d615d20bcc5a5506779c6"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/future_work.pdf": {
-    "mtime": 1778230042.9251559,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/future_work.pdf": {
+    "mtime": 1779698942.102304,
     "hash": "0ce904b0ac860b1cbe7315db9fbc0f95"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/client_report.pdf": {
-    "mtime": 1778230042.923167,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/client_report.pdf": {
+    "mtime": 1779698942.0999267,
     "hash": "c85282c0801f096fb898f66b36dd71e2"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/mandatory/Mandatory Disclosures_KEC.pdf": {
-    "mtime": 1778230042.959589,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/mandatory/Mandatory Disclosures_KEC.pdf": {
+    "mtime": 1779698942.1534834,
     "hash": "e43e8832e8dd1d8200d2c46e9ec6d97d"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/image.png": {
-    "mtime": 1778230042.9272397,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/image.png": {
+    "mtime": 1779698942.118574,
     "hash": "5b9fbc8a704a9414aa971b02e79077e3"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/vite.svg": {
-    "mtime": 1778230042.9599664,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/vite.svg": {
+    "mtime": 1779698942.1541438,
     "hash": "8e3a10e157f75ada21ab742c022d5430"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/hod/WhatsApp Image 2025-09-02 at 3.10.53 PM.jpeg": {
-    "mtime": 1778230042.9468648,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/hod/WhatsApp Image 2025-09-02 at 3.10.53 PM.jpeg": {
+    "mtime": 1779698942.1424878,
     "hash": "218791cffd96f43bbe1f551f639e8950"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/Achievements/pranesh.png": {
-    "mtime": 1778230042.92894,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/Achievements/pranesh.png": {
+    "mtime": 1779698942.121066,
     "hash": "4706c66e09ba814b6dd013953b15c7ff"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/Achievements/lib.jpeg": {
-    "mtime": 1778230042.9288623,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/Achievements/lib.jpeg": {
+    "mtime": 1779698942.1209571,
     "hash": "74fda14acdc0e8c4b7727f51619a21d9"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/images/2025-08-27 19.10.46.jpg": {
-    "mtime": 1778230042.9472997,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/images/2025-08-27 19.10.46.jpg": {
+    "mtime": 1779698942.142936,
     "hash": "96d6b06cff334d6fd0dd3385e27743da"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/images/2025-09-30 09.03.49.jpg": {
-    "mtime": 1778230042.947678,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/images/2025-09-30 09.03.49.jpg": {
+    "mtime": 1779698942.143371,
     "hash": "96d6b06cff334d6fd0dd3385e27743da"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/campus/drone.jpeg": {
-    "mtime": 1778230042.9314861,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/campus/drone.jpeg": {
+    "mtime": 1779698942.1278336,
     "hash": "c101485c1ab3a78a7584dde2d6fe05a7"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/campus/Cultural.jpeg": {
-    "mtime": 1778230042.930605,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/campus/Cultural.jpeg": {
+    "mtime": 1779698942.1248481,
     "hash": "d410a719ca8a2b10f85cd313becb0035"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/campus/Library.jpeg": {
-    "mtime": 1778230042.9309132,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/campus/Library.jpeg": {
+    "mtime": 1779698942.1258152,
     "hash": "f5ab099cd0321612487c72a63ee8eed9"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/campus/Academic.jpeg": {
-    "mtime": 1778230042.929875,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/campus/Academic.jpeg": {
+    "mtime": 1779698942.1227753,
     "hash": "efade5720bb8c341ac60c52c53d1f3bc"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/campus/sports.jpeg": {
-    "mtime": 1778230042.9318542,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/campus/sports.jpeg": {
+    "mtime": 1779698942.1288743,
     "hash": "85906eaf1919e6074e5dd67b1e503774"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/herosection/building.jpg": {
-    "mtime": 1778230042.9462535,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/herosection/building.jpg": {
+    "mtime": 1779698942.1421409,
     "hash": "d9440c136159448423bd8f2c54f43168"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/courses/droneCourse.jpg": {
-    "mtime": 1778230042.9395022,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/courses/droneCourse.jpg": {
+    "mtime": 1779698942.1336052,
     "hash": "8f8ce015e0fdb17fca7df33611205d77"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/courses/Ev.jpg": {
-    "mtime": 1778230042.9326406,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/courses/Ev.jpg": {
+    "mtime": 1779698942.130035,
     "hash": "6068e619765dd96eade4c40d63a5ea14"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/courses/FasT.jpg": {
-    "mtime": 1778230042.9333365,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/courses/FasT.jpg": {
+    "mtime": 1779698942.1312659,
     "hash": "c9ea4ee4de7f4d245678a3ca10ca8d77"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/courses/coding.jpg": {
-    "mtime": 1778230042.9344378,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/courses/coding.jpg": {
+    "mtime": 1779698942.1326022,
     "hash": "ce2ac2fe4467b3fbffce8302ff6d9ec4"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/dep/cse.jpeg": {
-    "mtime": 1778230042.9400835,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/dep/cse.jpeg": {
+    "mtime": 1779698942.1346014,
     "hash": "950d64d0b99f55aa44092bb53a24ad96"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/dep/civil.jpeg": {
-    "mtime": 1778230042.9398203,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/dep/civil.jpeg": {
+    "mtime": 1779698942.13429,
     "hash": "adb548da76a7d64f6a57afa4cac94349"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/dep/mech.jpeg": {
-    "mtime": 1778230042.9406447,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/dep/mech.jpeg": {
+    "mtime": 1779698942.1362488,
     "hash": "1d33450fd4ffb4323880e5ec6f81bac3"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/dep/eee.jpeg": {
-    "mtime": 1778230042.9403584,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/dep/eee.jpeg": {
+    "mtime": 1779698942.1358986,
     "hash": "893eaf65c09602d2c82d38f99c429d0e"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/alumini/sanjay kumar.png": {
-    "mtime": 1778230042.9294097,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/alumini/sanjay kumar.png": {
+    "mtime": 1779698942.1219614,
     "hash": "3a731b83bef73d11f4bc7764d673a10e"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/alumini/trilok dhruw.png": {
-    "mtime": 1778230042.929491,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/alumini/trilok dhruw.png": {
+    "mtime": 1779698942.1220553,
     "hash": "3f7893e03e7c4e7b14da1038de030be1"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/alumini/nidhi chandrawanshi.png": {
-    "mtime": 1778230042.9292777,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/alumini/nidhi chandrawanshi.png": {
+    "mtime": 1779698942.1217744,
     "hash": "a869393608e9197abee5aa47675cf4b2"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/alumini/SAZIYA NAAZ.png": {
-    "mtime": 1778230042.9290574,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/alumini/SAZIYA NAAZ.png": {
+    "mtime": 1779698942.1212368,
     "hash": "00ade0867ed20be88f52a3238fb9e0f8"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/alumini/yuraj Khare.png": {
-    "mtime": 1778230042.929571,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/alumini/yuraj Khare.png": {
+    "mtime": 1779698942.1221328,
     "hash": "11cc5cb262edbd0834136ee2c3e81ef4"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/alumini/TARA CHAND DEWANGAN.png": {
-    "mtime": 1778230042.929125,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/alumini/TARA CHAND DEWANGAN.png": {
+    "mtime": 1779698942.12155,
     "hash": "c1390e0de27840c8deb5989f3f79b2c9"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/alumini/nupur.png": {
-    "mtime": 1778230042.9293418,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/alumini/nupur.png": {
+    "mtime": 1779698942.1218352,
     "hash": "aed64f6a5c93d9dec77e35d7499b0f8c"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/alumini/bhupendra.png": {
-    "mtime": 1778230042.9291894,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/alumini/bhupendra.png": {
+    "mtime": 1779698942.1216486,
     "hash": "e149637d11c41357674f4c4f2ddba7c9"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/leadership/anandKumar.jpeg": {
-    "mtime": 1778230042.9479353,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/leadership/anandKumar.jpeg": {
+    "mtime": 1779698942.143635,
     "hash": "d955937c50cfcdf0f4b63839a747fbe2"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/events/event4.jpg": {
-    "mtime": 1778230042.942845,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/events/event4.jpg": {
+    "mtime": 1779698942.140254,
     "hash": "f23b9789d192e2b0293867d9141776bb"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/events/event1.jpeg": {
-    "mtime": 1778230042.9417849,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/events/event1.jpeg": {
+    "mtime": 1779698942.1381521,
     "hash": "fe3f21cddcbdaf36f8cb1b1f24018a3c"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/events/event2.jpeg": {
-    "mtime": 1778230042.9422636,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/events/event2.jpeg": {
+    "mtime": 1779698942.1392372,
     "hash": "1617827f6043a09839f550c9a5438d87"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/public/events/event3.jpeg": {
-    "mtime": 1778230042.9425867,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/public/events/event3.jpeg": {
+    "mtime": 1779698942.1395278,
     "hash": "6af1a941b40d84c34a5069358806e284"
   },
-  "/Users/jatin/Documents/untitled folder/KEC-main/frontend/src/assets/react.svg": {
-    "mtime": 1778230042.960213,
+  "/Users/jatin/Documents/untitled folder 4/kec-frontend/src/assets/react.svg": {
+    "mtime": 1779698942.1565957,
     "hash": "f0402b67b6ce880f65666bb49e841696"
   }
 }

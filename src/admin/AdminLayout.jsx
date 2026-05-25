@@ -38,20 +38,26 @@ const AdminLayout = () => {
   const location = useLocation();
 
   const user = getAdminUser();
-  const role = user?.role || 'SUPER_ADMIN';
+  const role = user?.role;
   const username = user?.username || 'Admin';
 
   // Redirect gallery admin completely to their own dedicated route
   React.useEffect(() => {
-    if (role === 'GALLERY_ADMIN') {
+    if (!user) {
+      navigate('/admin/login', { replace: true });
+    } else if (role === 'GALLERY_ADMIN') {
       navigate('/gallery-admin', { replace: true });
     }
-  }, [role, navigate]);
+  }, [user, role, navigate]);
 
   const handleLogout = () => {
     authService.logout();
     navigate('/admin/login');
   };
+
+  if (!user) {
+    return null;
+  }
 
   const allNavItems = [
     { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },

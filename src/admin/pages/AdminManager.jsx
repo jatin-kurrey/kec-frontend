@@ -13,9 +13,16 @@ import {
   CheckCircle2,
   KeyRound,
   User,
-  Settings
+  Settings,
+  Upload,
+  Sliders,
+  BookOpen,
+  Sparkles,
+  Award,
+  FileText,
+  Loader2
 } from 'lucide-react';
-import { adminAccountService } from '../../api';
+import { adminAccountService, settingsService, uploadService } from '../../api';
 
 const AdminManager = () => {
   const [activeTab, setActiveTab] = useState('accounts'); // 'accounts' or 'profile'
@@ -53,6 +60,52 @@ const AdminManager = () => {
     newPassword: '',
     confirmNewPassword: ''
   });
+
+  // Super 40 Configurations state
+  const [systemSettings, setSystemSettings] = useState({
+    super40_exam_year: '2024',
+    super40_seats: '40',
+    super40_acceptance_rate: '2%',
+    super40_placement_record: '100%',
+    super40_application_start: 'Jan 15, 2024',
+    super40_last_date: 'Mar 30, 2024',
+    super40_admit_card: 'Apr 15, 2024',
+    super40_exam_date: 'Apr 28, 2024',
+    super40_results_date: 'May 15, 2024',
+    super40_features: '',
+    super40_eligibility: '',
+    super40_brochure_url: '',
+    super40_total_marks: '180',
+    super40_duration_hours: '3',
+    super40_question_type: 'MCQ'
+  });
+
+  const [settingsLoading, setSettingsLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
+  const [uploadLoading, setUploadLoading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
+  const [uploadSuccess, setUploadSuccess] = useState('');
+
+  useEffect(() => {
+    if (activeTab === 'super40') {
+      setSettingsLoading(true);
+      settingsService.get()
+        .then(res => {
+          if (res.data) {
+            setSystemSettings(prev => ({
+              ...prev,
+              ...res.data
+            }));
+          }
+        })
+        .catch(err => {
+          console.error("Failed to load settings:", err);
+        })
+        .finally(() => {
+          setSettingsLoading(false);
+        });
+    }
+  }, [activeTab]);
 
   const fetchAdmins = async () => {
     setLoading(true);
@@ -203,6 +256,48 @@ const AdminManager = () => {
     }
   };
 
+  const handleSettingChange = (e) => {
+    const { name, value } = e.target;
+    setSystemSettings(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleBrochureUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploadLoading(true);
+    setUploadError('');
+    setUploadSuccess('');
+    try {
+      const response = await uploadService.upload(file);
+      const url = response.data.url;
+      setSystemSettings(prev => ({ ...prev, super40_brochure_url: url }));
+      setUploadSuccess('Brochure uploaded successfully!');
+    } catch (err) {
+      setUploadError('Failed to upload brochure. Please try again.');
+    } finally {
+      setUploadLoading(false);
+    }
+  };
+
+  const handleSettingsSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    setSaveLoading(true);
+
+    try {
+      for (const [key, value] of Object.entries(systemSettings)) {
+        await settingsService.update(key, value);
+      }
+      setSuccess('Super 40 configurations synchronized successfully!');
+    } catch (err) {
+      setError('Failed to save settings. Please try again.');
+    } finally {
+      setSaveLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -246,6 +341,21 @@ const AdminManager = () => {
         >
           <KeyRound className="w-4 h-4" />
           <span>My Profile Settings</span>
+        </button>
+        <button
+          onClick={() => {
+            setActiveTab('super40');
+            setSuccess('');
+            setError('');
+          }}
+          className={`pb-4 px-2 font-black text-sm uppercase tracking-wider border-b-2 transition-all flex items-center gap-2 ${
+            activeTab === 'super40' 
+              ? 'border-blue-900 text-blue-900 font-extrabold' 
+              : 'border-transparent text-slate-400 hover:text-slate-600'
+          }`}
+        >
+          <Settings className="w-4 h-4" />
+          <span>Super 40 Config</span>
         </button>
       </div>
 
@@ -482,6 +592,278 @@ const AdminManager = () => {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {activeTab === 'super40' && (
+        <div className="bg-white border border-slate-100 rounded-[2.5rem] p-8 md:p-10 shadow-sm">
+          <div className="mb-8 border-b border-slate-100 pb-6 flex items-center justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-slate-900 tracking-tight mb-1">Super 40 Configurations</h3>
+              <p className="text-sm text-slate-400 font-medium">Manage admissions, important dates, eligibility, and prospectus brochure uploads.</p>
+            </div>
+            <div className="flex items-center gap-2 text-xs bg-blue-50 text-blue-900 font-black uppercase tracking-widest px-3 py-1.5 rounded-xl">
+              <Sparkles className="w-4 h-4 text-blue-900" />
+              Live Sync
+            </div>
+          </div>
+
+          {settingsLoading ? (
+            <div className="py-20 flex flex-col items-center justify-center gap-4">
+              <div className="w-12 h-12 border-4 border-blue-900/10 border-t-blue-900 rounded-full animate-spin"></div>
+              <p className="text-slate-400 font-bold text-sm">Loading settings from database...</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSettingsSubmit} className="space-y-8">
+              {/* Stats Grid */}
+              <div className="space-y-4">
+                <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest flex items-center gap-2">
+                  <Award className="w-4 h-4" />
+                  Exam Parameters & Stats
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Exam Year</label>
+                    <input
+                      type="text"
+                      name="super40_exam_year"
+                      value={systemSettings.super40_exam_year}
+                      onChange={handleSettingChange}
+                      className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-8 focus:ring-blue-500/5 transition-all text-sm text-slate-900 font-bold"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Seats Count</label>
+                    <input
+                      type="text"
+                      name="super40_seats"
+                      value={systemSettings.super40_seats}
+                      onChange={handleSettingChange}
+                      className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-8 focus:ring-blue-500/5 transition-all text-sm text-slate-900 font-bold"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Acceptance Rate</label>
+                    <input
+                      type="text"
+                      name="super40_acceptance_rate"
+                      value={systemSettings.super40_acceptance_rate}
+                      onChange={handleSettingChange}
+                      className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-8 focus:ring-blue-500/5 transition-all text-sm text-slate-900 font-bold"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Placement Record</label>
+                    <input
+                      type="text"
+                      name="super40_placement_record"
+                      value={systemSettings.super40_placement_record}
+                      onChange={handleSettingChange}
+                      className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-8 focus:ring-blue-500/5 transition-all text-sm text-slate-900 font-bold"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Schedule Dates */}
+              <div className="space-y-4 pt-4 border-t border-slate-100">
+                <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  Important Dates Schedule
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Application Start</label>
+                    <input
+                      type="text"
+                      name="super40_application_start"
+                      value={systemSettings.super40_application_start}
+                      onChange={handleSettingChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Last Date to Apply</label>
+                    <input
+                      type="text"
+                      name="super40_last_date"
+                      value={systemSettings.super40_last_date}
+                      onChange={handleSettingChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Admit Card available</label>
+                    <input
+                      type="text"
+                      name="super40_admit_card"
+                      value={systemSettings.super40_admit_card}
+                      onChange={handleSettingChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Entrance Exam</label>
+                    <input
+                      type="text"
+                      name="super40_exam_date"
+                      value={systemSettings.super40_exam_date}
+                      onChange={handleSettingChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Results Declaration</label>
+                    <input
+                      type="text"
+                      name="super40_results_date"
+                      value={systemSettings.super40_results_date}
+                      onChange={handleSettingChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Pattern and Brochure PDF Upload */}
+              <div className="space-y-4 pt-4 border-t border-slate-100">
+                <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest flex items-center gap-2">
+                  <FileText className="w-4 h-4" />
+                  Brochure and Exam Pattern
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Total Marks</label>
+                    <input
+                      type="text"
+                      name="super40_total_marks"
+                      value={systemSettings.super40_total_marks}
+                      onChange={handleSettingChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Duration Hours</label>
+                    <input
+                      type="text"
+                      name="super40_duration_hours"
+                      value={systemSettings.super40_duration_hours}
+                      onChange={handleSettingChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Question Type</label>
+                    <input
+                      type="text"
+                      name="super40_question_type"
+                      value={systemSettings.super40_question_type}
+                      onChange={handleSettingChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-4 p-6 bg-slate-50 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-100">
+                  <div>
+                    <h5 className="font-bold text-slate-800 text-sm">Prospectus Brochure PDF</h5>
+                    <p className="text-xs font-semibold text-slate-400 mt-1">Upload the dynamic brochure PDF directly to KEC storage.</p>
+                    {systemSettings.super40_brochure_url && (
+                      <span className="text-xs font-bold text-blue-900 bg-blue-50 px-3.5 py-1.5 rounded-lg inline-block mt-3 border border-blue-100/50 break-all">
+                        Active PDF Path: {systemSettings.super40_brochure_url}
+                      </span>
+                    )}
+                  </div>
+                  <div className="shrink-0 w-full md:w-auto">
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      id="kec-brochure-file"
+                      className="hidden"
+                      onChange={handleBrochureUpload}
+                    />
+                    <label
+                      htmlFor="kec-brochure-file"
+                      className="px-6 py-3.5 bg-white border border-slate-200 hover:border-blue-900 rounded-xl text-xs font-black uppercase tracking-wider text-slate-700 hover:text-blue-900 cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      {uploadLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin text-blue-900" />
+                          Uploading PDF...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-4 h-4" />
+                          Upload PDF
+                        </>
+                      )}
+                    </label>
+                  </div>
+                </div>
+                {uploadError && <p className="text-xs font-bold text-red-600 mt-1">{uploadError}</p>}
+                {uploadSuccess && <p className="text-xs font-bold text-emerald-600 mt-1">{uploadSuccess}</p>}
+              </div>
+
+              {/* Lists */}
+              <div className="space-y-4 pt-4 border-t border-slate-100">
+                <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest flex items-center gap-2">
+                  <Sliders className="w-4 h-4" />
+                  Eligibility & Features List (separated by |)
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Core Features</label>
+                    <textarea
+                      name="super40_features"
+                      value={systemSettings.super40_features}
+                      onChange={handleSettingChange}
+                      rows="4"
+                      className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white text-sm text-slate-900 font-bold"
+                      placeholder="Feature 1|Feature 2|Feature 3"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Eligibility Bullet Points</label>
+                    <textarea
+                      name="super40_eligibility"
+                      value={systemSettings.super40_eligibility}
+                      onChange={handleSettingChange}
+                      rows="4"
+                      className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white text-sm text-slate-900 font-bold"
+                      placeholder="Eligibility 1|Eligibility 2"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-slate-100">
+                <button
+                  type="submit"
+                  disabled={saveLoading}
+                  className="px-8 py-4 bg-blue-900 hover:bg-blue-800 text-white rounded-2xl font-bold text-sm shadow-lg shadow-blue-900/10 flex items-center gap-2.5 disabled:opacity-60"
+                >
+                  {saveLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Synchronizing configurations...
+                    </>
+                  ) : (
+                    'Save Settings & Sync Live'
+                  )}
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       )}
 

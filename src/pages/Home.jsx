@@ -11,6 +11,7 @@ import AlumniSection from "../components/alumni";
 import UniversitySection from "../components/UniversitySection";
 import AchievementsSection from "../components/AchievementsSection";
 import SkillDevelopment from "../components/SkillDevelopment";
+import Super40CTA from "../components/Super40CTA";
 
 const Home = () => {
 
@@ -40,6 +41,7 @@ const Home = () => {
       <Leadership />
       <AlumniSection />
       <PlacementPartners />
+      <Super40CTA />
       <NoticeBoard ref={newsRef} />
       <SkillDevelopment/>
       <AboutSection />

@@ -22,9 +22,20 @@ const EngineeringDepartments = () => {
     queryKey: ['departments-public'],
     queryFn: async () => {
       const res = await departmentService.getAll();
+      const shortNameMap = {
+        'ME': 'MECH',
+        'EE': 'EEE',
+        'MECH': 'MECH',
+        'EEE': 'EEE',
+        'CSE': 'CSE',
+        'CIVIL': 'CIVIL'
+      };
+      
       const iconMap = {
         'CSE': Cpu,
+        'ME': Settings,
         'MECH': Settings,
+        'EE': Zap,
         'EEE': Zap,
         'CIVIL': GraduationCap,
         'DEFAULT': GraduationCap
@@ -32,29 +43,70 @@ const EngineeringDepartments = () => {
       
       const data = Array.isArray(res.data) ? res.data : (res.data?.data || []);
       
-      return data.map((dept, idx) => ({
-        id: dept.id,
-        number: (idx + 1).toString().padStart(2, '0'),
-        title: dept.name,
-        shortTitle: dept.short_name,
-        description: dept.description,
-        icon: iconMap[dept.short_name] || iconMap.DEFAULT,
-        image: dept.image_url ? (dept.image_url.startsWith('http') ? dept.image_url : `${contentService.getBaseUrl()}${dept.image_url.startsWith('/') ? '' : '/'}${dept.image_url}`) : `/dep/${dept.short_name.toLowerCase()}.jpeg`,
-        color: dept.color_from && dept.color_to ? `from-${dept.color_from} to-${dept.color_to}` : "from-blue-500 to-cyan-500",
-        textColor: `text-${dept.color_from || 'blue'}-600`,
-        bgColor: `bg-${dept.color_from || 'blue'}-500`,
-        gradient: `bg-gradient-to-r from-${dept.color_from || 'blue'}-500 to-${dept.color_to || 'cyan'}-500`,
-        stats: dept.stats || {
-          alumni: "1000+",
-          faculty: "45",
-          labs: "15",
-          placements: "98%",
-        },
-        features: dept.highlights || ["Advanced Research", "Industry Focus", "Modern Labs", "Global Placement"],
-        icons: [Code, Network, Database, Cloud],
-      }));
+      return data.map((dept, idx) => {
+        const shortName = shortNameMap[dept.short_name] || dept.short_name || 'DEFAULT';
+        
+        let colorFrom = 'blue';
+        let colorTo = 'cyan';
+        
+        if (shortName === 'MECH' || shortName === 'ME') {
+          colorFrom = 'orange';
+          colorTo = 'red';
+        } else if (shortName === 'EEE' || shortName === 'EE') {
+          colorFrom = 'green';
+          colorTo = 'emerald';
+        } else if (shortName === 'CIVIL') {
+          colorFrom = 'red';
+          colorTo = 'pink';
+        }
+
+        let highlights = ["Advanced Research", "Industry Focus", "Modern Labs", "Global Placement"];
+        if (dept.highlights) {
+          try {
+            const parsed = typeof dept.highlights === 'string' ? JSON.parse(dept.highlights) : dept.highlights;
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              highlights = parsed;
+            }
+          } catch(e) {
+            console.error(e);
+          }
+        }
+        
+        return {
+          id: dept.id,
+          number: (idx + 1).toString().padStart(2, '0'),
+          title: dept.name,
+          shortTitle: shortName,
+          description: dept.description,
+          icon: iconMap[dept.short_name] || iconMap[shortName] || iconMap.DEFAULT,
+          image: `/dep/${shortName.toLowerCase()}.jpeg`,
+          color: `from-${colorFrom}-500 to-${colorTo}-500`,
+          textColor: `text-${colorFrom}-600`,
+          bgColor: `bg-${colorFrom}-500`,
+          gradient: `bg-gradient-to-r from-${colorFrom}-500 to-${colorTo}-500`,
+          stats: {
+            alumni: dept.student_count ? `${dept.student_count}+` : "500+",
+            faculty: dept.faculty_count ? dept.faculty_count.toString() : "35",
+            labs: dept.lab_count ? dept.lab_count.toString() : "10",
+            placements: dept.placement_rate || "95%",
+          },
+          features: highlights,
+          icons: [Code, Network, Database, Cloud],
+        };
+      });
     }
   });
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isAutoPlaying || departments.length === 0) return;
+
+    const interval = setInterval(() => {
+      handleDepartmentChange((activeDepartment + 1) % departments.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [activeDepartment, isAutoPlaying, departments]);
 
   // Enhanced GSAP Animations
   useEffect(() => {
@@ -72,6 +124,8 @@ const EngineeringDepartments = () => {
 
   // Enhanced department change animation
   useEffect(() => {
+    if (departments.length === 0) return;
+    
     const ctx = gsap.context(() => {
       // Image animation
       if (imageRef.current) {
@@ -118,7 +172,7 @@ const EngineeringDepartments = () => {
     }, sectionRef.current);
 
     return () => ctx.revert();
-  }, [activeDepartment]);
+  }, [activeDepartment, departments]);
 
   const handleDepartmentChange = (index) => {
     if (index === activeDepartment) return;
@@ -151,9 +205,17 @@ const EngineeringDepartments = () => {
 
   return (
     <section 
-     
+      ref={sectionRef}
       className="relative w-full min-h-screen bg-white flex items-center px-4 lg:px-8 py-16 overflow-hidden"
     >
+      {/* Inline styles for custom premium progress bar keyframe animation */}
+      <style>{`
+        @keyframes progress-bar {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+      `}</style>
+
       {/* Simplified Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100/20" />
       
@@ -193,7 +255,7 @@ const EngineeringDepartments = () => {
           {/* Simplified Features */}
           <div className="grid grid-cols-2 gap-3">
             {activeDept.features.map((feature, index) => {
-              const IconComponent = activeDept.icons[index];
+              const IconComponent = activeDept.icons[index] || Code;
               return (
                 <div 
                   key={feature}
@@ -281,8 +343,12 @@ const EngineeringDepartments = () => {
           <div className="absolute bottom-4 left-4 right-4">
             <div className="h-1 bg-white/20 rounded-full overflow-hidden">
               <div 
-                className={`h-full ${activeDept.bgColor} transition-all duration-1000 ease-out`}
-                style={{ width: isAutoPlaying ? '100%' : '0%' }}
+                key={`${activeDepartment}-${isAutoPlaying}`}
+                className={`h-full ${activeDept.bgColor}`}
+                style={{ 
+                  animation: isAutoPlaying ? 'progress-bar 5000ms linear forwards' : 'none',
+                  width: isAutoPlaying ? 'auto' : '0%'
+                }}
               />
             </div>
           </div>

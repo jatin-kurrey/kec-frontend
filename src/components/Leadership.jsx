@@ -16,19 +16,120 @@ const LeadershipProfiles = () => {
     queryFn: async () => {
       const res = await leadershipService.getAll();
       const data = Array.isArray(res.data) ? res.data : (res.data?.data || []);
-      return data.map(leader => ({
-        ...leader,
-        image: leader.image_url ? 
-          (leader.image_url.startsWith('http') ? leader.image_url : `${contentService.getBaseUrl()}${leader.image_url.startsWith('/') ? '' : '/'}${leader.image_url}`) :
-          "https://www.kecbhilai.com/images/MANAGEMENT%20&%20HIGHER%20AUTHORITIES/mmtripathi.jpg",
-        color: leader.color || "#3B82F6",
-        stats: leader.stats || {
+      
+      const execRoles = ["Chairman", "Secretary", "Vice-Chairman"];
+      const filtered = data.filter(leader => 
+        execRoles.some(role => leader.role.toLowerCase().includes(role.toLowerCase()))
+      );
+      
+      if (filtered.length === 0) {
+        return [
+          {
+            id: "L01",
+            name: "Mr. Anand Kumar Tripathi",
+            role: "Chairman, Krishna Engineering College & Vice-Chairman, KES",
+            bio: "A visionary leader shaping the growth of Krishna Engineering College and contributing significantly as Vice-Chairman of Krishna Education Society.",
+            image: "/leadership/anandKumar.jpeg",
+            color: "#FF7F50",
+            stats: { experience: "15+ Years", initiatives: "50+", leadership: "Visionary" },
+            achievements: [
+              "Chairman of Krishna Engineering College",
+              "Vice-Chairman of Krishna Education Society",
+              "Driving academic excellence and innovation in education"
+            ]
+          },
+          {
+            id: "L02",
+            name: "Mr. M. M. Tripathi",
+            role: "Chairman, Krishna Education Society",
+            bio: "Providing strong leadership and guidance as Chairman of Krishna Education Society, fostering an environment of learning and growth.",
+            image: "https://www.kecbhilai.com/images/MANAGEMENT%20&%20HIGHER%20AUTHORITIES/mmtripathi.jpg",
+            color: "#00C950",
+            stats: { experience: "20+ Years", initiatives: "100+", leadership: "Strategic" },
+            achievements: [
+              "Chairman of Krishna Education Society",
+              "Promoting quality education and values",
+              "Champion of community-driven education"
+            ]
+          },
+          {
+            id: "L03",
+            name: "Mr. Pramod Kumar Tripathi",
+            role: "Secretary, Krishna Education Society",
+            bio: "Dedicated to the mission of Krishna Education Society, ensuring high standards in education and administration.",
+            image: "https://www.kecbhilai.com/images/MANAGEMENT%20&%20HIGHER%20AUTHORITIES/pramodtripathi.jpg",
+            color: "#FA2C37",
+            stats: { experience: "12+ Years", initiatives: "75+", leadership: "Operational" },
+            achievements: [
+              "Secretary of Krishna Education Society",
+              "Strengthening academic and cultural initiatives",
+              "Committed to holistic student development"
+            ]
+          }
+        ];
+      }
+
+      filtered.sort((a, b) => (a.priority || 0) - (b.priority || 0));
+
+      return filtered.map(leader => {
+        let achievements = [];
+        if (leader.achievements) {
+          try {
+            achievements = typeof leader.achievements === 'string' ? JSON.parse(leader.achievements) : leader.achievements;
+          } catch(e) {
+            console.error(e);
+          }
+        }
+        if (!Array.isArray(achievements) || achievements.length === 0) {
+          achievements = [
+            "Promoting quality education and values",
+            "Champion of community-driven education",
+            "Committed to holistic student development"
+          ];
+        }
+
+        let color = "#3B82F6";
+        let stats = {
           experience: "15+ Years",
           initiatives: "50+",
           leadership: "Visionary"
-        },
-        achievements: leader.achievements || []
-      }));
+        };
+
+        const name = leader.name.toLowerCase();
+        if (name.includes("anand")) {
+          color = "#FF7F50";
+          stats = {
+            experience: leader.experience || "15+ Years",
+            initiatives: "50+",
+            leadership: "Visionary"
+          };
+        } else if (name.includes("m. m.") || name.includes("m.m.")) {
+          color = "#00C950";
+          stats = {
+            experience: leader.experience || "20+ Years",
+            initiatives: "100+",
+            leadership: "Strategic"
+          };
+        } else if (name.includes("pramod")) {
+          color = "#FA2C37";
+          stats = {
+            experience: leader.experience || "12+ Years",
+            initiatives: "75+",
+            leadership: "Operational"
+          };
+        }
+
+        return {
+          id: leader.id,
+          name: leader.name,
+          role: leader.role,
+          bio: leader.bio,
+          image: leader.image ? (leader.image.startsWith('http') || leader.image.startsWith('/') ? leader.image : `${contentService.getBaseUrl()}/${leader.image}`) : "/leadership/anandKumar.jpeg",
+          color: color,
+          stats: stats,
+          achievements: achievements
+        };
+      });
     }
   });
 
@@ -43,56 +144,39 @@ const LeadershipProfiles = () => {
     const ctx = gsap.context(() => {
       const cards = cardsRef.current.filter(Boolean);
 
-      // Set initial state
       cards.forEach((card, i) => {
-        gsap.set(card, {
-          opacity: 1,
-          y: i === 0 ? 0 : 50,
-          scale: i === 0 ? 1 : 0.95,
-        });
-      });
-
-      cards.forEach((card, i) => {
-        if (i === cards.length - 1) return;
-
-        const nextCard = cards[i + 1];
-        const currentCard = card;
-
-        ScrollTrigger.create({
-          trigger: currentCard,
-          start: "top top+=200",
-          end: () => `+=${currentCard.offsetHeight + 100}`,
-          pin: true,
-          pinSpacing: false,
-          scrub: 1,
-          onUpdate: (self) => {
-            const progress = self.progress;
-
-            // Animate current card
-            gsap.to(currentCard, {
-              opacity: 1 - progress,
-              y: -30 * progress,
-              scale: 1 - 0.03 * progress,
-              overwrite: "auto",
-            });
-
-            // Animate next card
-            if (nextCard) {
-              gsap.to(nextCard, {
-                opacity: progress,
-                y: 50 - 50 * progress,
-                scale: 0.97 + 0.03 * progress,
-                overwrite: "auto",
-              });
+        // Smooth entrance animation for each card
+        gsap.fromTo(card,
+          { opacity: 0, y: 60, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom-=100",
+              end: "top center+=100",
+              scrub: 0.5,
+              overwrite: "auto"
             }
+          }
+        );
 
-            // Update active leader
-            if (progress > 0.5) {
-              setActiveLeader(leaders[i + 1]);
-            } else {
+        // Update the active leader preview when the card is in focus
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top center+=200",
+          end: "bottom center+=200",
+          onToggle: (self) => {
+            if (self.isActive) {
               setActiveLeader(leaders[i]);
             }
           },
+          onUpdate: (self) => {
+            if (self.isActive && self.progress > 0.1) {
+              setActiveLeader(leaders[i]);
+            }
+          }
         });
       });
     }, sectionRef.current);

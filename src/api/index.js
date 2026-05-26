@@ -236,4 +236,9 @@ export const adminAccountService = {
   init: (username) => api.post('auth/init', { username }),
 };
 
+export const settingsService = {
+  get: () => api.get('settings'),
+  update: (key, value) => api.put('admin/settings', { key, value }),
+};
+
 export default api;

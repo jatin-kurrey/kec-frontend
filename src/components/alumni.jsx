@@ -32,41 +32,166 @@ const AlumniSuccessStories = () => {
 
   const [visibleCards, setVisibleCards] = useState(2);
 
-  const { data: alumniData, isLoading: loadingAlumni } = useQuery({
+  const { data: alumniData } = useQuery({
     queryKey: ['alumni-stories'],
     queryFn: async () => {
       const response = await alumniService.getAll();
       return Array.isArray(response.data) ? response.data : (response.data?.data || []);
-    }
+    },
+    retry: 1
   });
 
-  const { data: statsData, isLoading: loadingStats } = useQuery({
+  const { data: statsData } = useQuery({
     queryKey: ['alumni-stats'],
     queryFn: async () => {
       const response = await alumniService.getStats();
       return Array.isArray(response.data) ? response.data : (response.data?.data || []);
-    }
+    },
+    retry: 1
   });
 
-  const alumniStories = Array.isArray(alumniData) ? alumniData.map((item, index) => ({
-    id: item.id || index,
-    name: item.name,
-    graduationYear: item.batch || "N/A",
-    degree: item.department || "N/A",
-    currentPosition: `${item.designation || "Engineer"} at ${item.company || "Global"}`,
-    achievement: item.message || "Achieved great heights after graduation.",
-    image: item.image || "/alumini/SAZIYA NAAZ.png",
-    color: index % 5 === 0 ? "#22c55e" : index % 5 === 1 ? "#16a34a" : index % 5 === 2 ? "#15803d" : index % 5 === 3 ? "#166534" : "#14532d",
-    quote: item.message || "KEC gave me the foundation for success.",
-    stats: { year: item.batch || "N/A" },
-    companyLogo: "💻",
-  })) : [];
+  const fallbackAlumniStories = [
+    {
+      id: 1,
+      name: "SAZIYA NAAZ",
+      graduationYear: "2025",
+      degree: "CSE",
+      currentPosition: "Software Engineer at Codenicely",
+      achievement: "Secured placement in Codenicely before graduation.",
+      image: "/alumini/SAZIYA NAAZ.png",
+      color: "#22c55e",
+      quote: "My journey at KEC gave me confidence to crack Codenicely interviews.",
+      stats: { year: "2025" },
+      companyLogo: "💻",
+      featured: true,
+    },
+    {
+      id: 2,
+      name: "TARA CHAND DEWANGAN",
+      graduationYear: "2025",
+      degree: "CSE",
+      currentPosition: "Software Engineer at Sthanve Software",
+      achievement: "Placed at Sthanve Software during campus drive.",
+      image: "/alumini/TARA CHAND DEWANGAN.png",
+      color: "#16a34a",
+      quote: "Faculty guidance helped me grab a role at Sthanve Software.",
+      stats: { year: "2025" },
+      companyLogo: "🚀",
+      featured: false,
+    },
+    {
+      id: 3,
+      name: "NIDHI CHANDRAWANDI",
+      graduationYear: "2024",
+      degree: "CSE",
+      currentPosition: "Engineer at Nullclass Technology",
+      achievement: "Started my professional journey at Nullclass Technology.",
+      image: "/alumini/nidhi chandrawanshi.png",
+      color: "#15803d",
+      quote: "Hands-on projects at KEC shaped my problem-solving skills.",
+      stats: { year: "2024" },
+      companyLogo: "⚡",
+      featured: false,
+    },
+    {
+      id: 4,
+      name: "BHUPENDRA",
+      graduationYear: "2022",
+      degree: "Civil",
+      currentPosition: "Engineer at Bodex System Pvt Ltd",
+      achievement: "Contributed to key projects at Bodex System Pvt Ltd after graduation.",
+      image: "/alumini/bhupendra.png",
+      color: "#166534",
+      quote: "The Civil department gave me industry-level exposure.",
+      stats: { year: "2022" },
+      companyLogo: "🏗️",
+      featured: false,
+    },
+    {
+      id: 5,
+      name: "NUPUR",
+      graduationYear: "2022",
+      degree: "CSE",
+      currentPosition: "Consultant at Linterbiz Consulting Pvt Ltd",
+      achievement: "Joined Linterbiz Consulting Pvt Ltd as a key team member.",
+      image: "/alumini/nupur.png",
+      color: "#14532d",
+      quote: "The analytical skills I developed at KEC helped me excel in consulting.",
+      stats: { year: "2022" },
+      companyLogo: "💼",
+      featured: false,
+    },
+    {
+      id: 6,
+      name: "TRILOK DHRUW",
+      graduationYear: "2022",
+      degree: "Electrical Engineering",
+      currentPosition: "Software Developer at Prixso Software",
+      achievement: "Transitioned from Electrical Engineering to a successful career in software development.",
+      image: "/alumini/trilok dhruw.png",
+      color: "#22c55e",
+      quote: "KEC's strong technical foundation helped me pivot into the IT industry confidently.",
+      stats: { year: "2022" },
+      companyLogo: "💡",
+      featured: false,
+    },
+    {
+      id: 7,
+      name: "YURAJ KHARE",
+      graduationYear: "2020",
+      degree: "Computer Science & Engineering",
+      currentPosition: "Software Engineer at Empyra Software Solutions",
+      achievement: "Started career as a full-stack developer at a reputed IT company.",
+      image: "/alumini/yuraj Khare.png",
+      color: "#16a34a",
+      quote: "KEC gave me the technical foundation and confidence to thrive in the IT industry.",
+      stats: { year: "2020" },
+      companyLogo: "💻",
+      featured: false,
+    },
+    {
+      id: 8,
+      name: "SANJAY KUMAR",
+      graduationYear: "2022",
+      degree: "Electrical Engineering",
+      currentPosition: "Project Engineer at Kalpataru Power Transmission Ltd.",
+      achievement: "Successfully contributed to multiple national infrastructure projects.",
+      image: "/alumini/sanjay kumar.png",
+      color: "#15803d",
+      quote: "The practical training and industry exposure at KEC laid the foundation for my career.",
+      stats: { year: "2022" },
+      companyLogo: "🏗️",
+      featured: false,
+    }
+  ];
+
+  const alumniStories = Array.isArray(alumniData) && alumniData.length > 0
+    ? alumniData.map((item, index) => {
+        const branchColor = index % 5 === 0 ? "#22c55e" : index % 5 === 1 ? "#16a34a" : index % 5 === 2 ? "#15803d" : index % 5 === 3 ? "#166534" : "#14532d";
+        const position = item.currentPosition || item.designation || "Software Engineer";
+        const companyName = item.company || "Global";
+        return {
+          id: item.id || index + 1,
+          name: item.name || "Alumni",
+          graduationYear: item.batch || "2025",
+          degree: item.degree || item.branch || "CSE",
+          currentPosition: `${position} at ${companyName}`,
+          achievement: item.story || (Array.isArray(item.achievements) && item.achievements.length > 0 ? item.achievements[0] : "Secured placement before graduation."),
+          image: item.image_url || item.photo || item.image || "/alumini/SAZIYA NAAZ.png",
+          color: branchColor,
+          quote: item.story || "KEC gave me the foundation for success.",
+          stats: { year: item.batch || "2025" },
+          companyLogo: index % 3 === 0 ? "💻" : index % 3 === 1 ? "🚀" : "⚡",
+          featured: item.is_featured,
+        };
+      })
+    : fallbackAlumniStories;
 
   const targets = {
-    alumni: parseInt(Array.isArray(statsData) ? statsData.find(s => s.label?.toLowerCase().includes('alumni'))?.value : 0) || 50000,
-    satisfaction: parseInt(Array.isArray(statsData) ? statsData.find(s => s.label?.toLowerCase().includes('satisfaction'))?.value : 0) || 90,
-    salary: parseInt(Array.isArray(statsData) ? statsData.find(s => s.label?.toLowerCase().includes('salary'))?.value : 0) || 85,
-    countries: parseInt(Array.isArray(statsData) ? statsData.find(s => s.label?.toLowerCase().includes('countries'))?.value : 0) || 150
+    alumni: parseInt(Array.isArray(statsData) && statsData.length > 0 ? statsData.find(s => s.label?.toLowerCase().includes('alumni'))?.value : 0) || 50000,
+    satisfaction: parseInt(Array.isArray(statsData) && statsData.length > 0 ? statsData.find(s => s.label?.toLowerCase().includes('satisfaction'))?.value : 0) || 90,
+    salary: parseInt(Array.isArray(statsData) && statsData.length > 0 ? statsData.find(s => s.label?.toLowerCase().includes('salary'))?.value : 0) || 85,
+    countries: parseInt(Array.isArray(statsData) && statsData.length > 0 ? statsData.find(s => s.label?.toLowerCase().includes('countries'))?.value : 0) || 150
   };
 
   const [counters, setCounters] = useState({
@@ -93,12 +218,11 @@ const AlumniSuccessStories = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const featuredAlumni = alumniStories.length > 0 ? alumniStories[0] : null;
-  const sliderAlumni = alumniStories.length > 1 ? alumniStories.slice(1) : alumniStories;
+  const featuredAlumni = alumniStories.find(alumni => alumni.featured) || alumniStories[0];
+  const sliderAlumni = alumniStories;
 
   // Counter animation
   useEffect(() => {
-    if (loadingStats) return;
 
     const animateCounters = () => {
       Object.keys(targets).forEach(key => {
@@ -128,7 +252,7 @@ const AlumniSuccessStories = () => {
       onEnter: animateCounters,
       once: true
     });
-  }, [loadingStats, targets]);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -298,14 +422,6 @@ const AlumniSuccessStories = () => {
   const Counter = ({ value, suffix = "" }) => {
     return <span>{value.toLocaleString()}{suffix}</span>;
   };
-
-  if (loadingAlumni || loadingStats) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
-      </div>
-    );
-  }
 
   if (!featuredAlumni) return null;
 

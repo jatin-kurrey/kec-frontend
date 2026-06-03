@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import { BookOpen, GraduationCap, Building2, Sparkles } from "lucide-react";

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigation } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Lenis from "@studio-freight/lenis";
+import Lenis from "lenis";
 import ScrollToTop from "../components/ScrollToTop";
 import Topbar from "../components/Topbar";
 import CategoryMenu from "../components/CategoryMenu";
 import Loader from "../components/Loader"; // 👈 import loader
+import BrochurePopup from "../components/BrochurePopup";
 
 const Layout = () => {
   const navigation = useNavigation(); // 👈 detects route changes
@@ -41,6 +41,7 @@ const Layout = () => {
   </div>
 
       <CategoryMenu />
+      <BrochurePopup />
 
       {/* Main Content */}
       <main className="flex-1">

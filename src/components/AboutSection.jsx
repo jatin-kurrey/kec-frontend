@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import AnimatedCounter from './AnimatedCounter';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -264,7 +265,7 @@ const CampusLife = () => {
                     className="card-number absolute top-6 right-6 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg border-2 border-white/20 transition-all duration-300"
                     style={{ backgroundColor: `${activity.color}80` }}
                   >
-                    0{index + 1}
+                    <AnimatedCounter value={`0${index + 1}`} />
                   </div>
 
                   {/* Content */}

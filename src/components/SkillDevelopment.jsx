@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import AnimatedCounter from './AnimatedCounter';
+import { useQuery } from '@tanstack/react-query';
+import { courseService } from '../api';
 import { 
   Drone, 
   Car, 
@@ -17,7 +21,8 @@ import {
   BookOpen,
   GraduationCap,
   Target,
-  TrendingUp
+  TrendingUp,
+  BatteryCharging
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -137,26 +142,6 @@ const TechPrograms = () => {
           }
         );
 
-        // Animate numbers counting up
-        const number = stat.querySelector('.stat-number');
-        if (number) {
-          const target = parseInt(number.textContent);
-          if (!isNaN(target)) {
-            gsap.to({}, {
-              duration: 2,
-              delay: 0.5 + index * 0.2,
-              onUpdate: function() {
-                const progress = this.progress();
-                number.textContent = Math.floor(target * progress) + (stat.textContent.includes('%') ? '%' : '+');
-              },
-              scrollTrigger: {
-                trigger: stat,
-                start: "top 90%",
-                toggleActions: "play none none reverse"
-              }
-            });
-          }
-        }
       });
 
       // Hover animations
@@ -209,7 +194,16 @@ const TechPrograms = () => {
     return () => ctx.revert();
   }, []);
 
-  const programs = [
+  // Fetch courses dynamically
+  const { data: dbCourses = [] } = useQuery({
+    queryKey: ['courses-skill-development'],
+    queryFn: async () => {
+      const response = await courseService.getAll();
+      return Array.isArray(response.data) ? response.data : (response.data?.data || []);
+    }
+  });
+
+  const defaultPrograms = [
     {
       id: 1,
       title: "Drone Technology",
@@ -223,13 +217,8 @@ const TechPrograms = () => {
         "Aerial photography & videography",
         "Drone programming with Python"
       ],
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1000&q=80",
-      price: "₹12,999",
-      originalPrice: "₹16,999",
-      discount: "23% off",
       color: "#00BA59",
       status: "Enrolling Now",
-      students: "124",
       iconBg: "from-green-500 to-emerald-600"
     },
     {
@@ -245,13 +234,8 @@ const TechPrograms = () => {
         "Embedded C programming",
         "PCB design & fabrication"
       ],
-      image: "https://images.unsplash.com/photo-1593941707882-a5bba53377fe?auto=format&fit=crop&w=1000&q=80",
-      price: "₹14,999",
-      originalPrice: "₹19,999",
-      discount: "25% off",
       color: "#1D78FD",
       status: "Starting Soon",
-      students: "89",
       iconBg: "from-blue-500 to-cyan-600"
     },
     {
@@ -267,16 +251,64 @@ const TechPrograms = () => {
         "Cloud deployment & DevOps",
         "AI & machine learning basics"
       ],
-      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80",
-      price: "₹11,999",
-      originalPrice: "₹15,999",
-      discount: "25% off",
       color: "#FF6463",
       status: "Limited Seats",
-      students: "156",
       iconBg: "from-red-500 to-pink-600"
+    },
+    {
+      id: 4,
+      title: "Fast Charging Station Technology",
+      icon: BatteryCharging,
+      description: "Specialize in designing, deploying, and managing rapid EV charging infrastructure with smart grid integration.",
+      duration: "4 Weeks",
+      level: "Intermediate",
+      features: [
+        "Power electronics for EV chargers",
+        "Smart grid integration",
+        "Energy storage system design",
+        "Renewable energy integration"
+      ],
+      color: "#EAB308",
+      status: "Starting Soon",
+      iconBg: "from-yellow-500 to-amber-600"
     }
   ];
+
+  const iconMap = {
+    Drone: Drone,
+    Car: Car,
+    Code2: Code2,
+    BatteryCharging: BatteryCharging
+  };
+
+  const skillCourses = dbCourses.filter(c => (c.department === "Summer Programs" || c.department === "Advanced Tech Programs") && c.is_active !== false);
+
+  const programs = skillCourses.length > 0
+    ? skillCourses.map(c => {
+        let highlights = [];
+        try {
+          highlights = typeof c.highlights === 'string' ? JSON.parse(c.highlights) : (Array.isArray(c.highlights) ? c.highlights : []);
+        } catch (e) {
+          highlights = [];
+        }
+        return {
+          id: c.id,
+          title: c.title,
+          icon: iconMap[c.icon] || Code2,
+          description: c.description,
+          duration: c.duration || "4 Weeks",
+          features: highlights.length > 0 ? highlights : [
+            "Hands-on practice",
+            "Expert mentorship",
+            "Certification upon completion",
+            "Project-based learning"
+          ],
+          color: c.color || "#00BA59",
+          status: c.eligibility || "Enrolling Now",
+          iconBg: c.icon_color || "from-green-500 to-emerald-600"
+        };
+      })
+    : defaultPrograms;
 
   const stats = [
     { number: "2500", label: "Students Trained", icon: Users, color: "#00BA59" },
@@ -299,7 +331,7 @@ const TechPrograms = () => {
 
   return (
     <div ref={sectionRef} className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-950 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[1600px] mx-auto">
         
         {/* Enhanced Header */}
         <div ref={headerRef} className="text-center mb-16">
@@ -320,13 +352,22 @@ const TechPrograms = () => {
           </p>
         </div>
 
-        {/* Main Programs Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        {/* Main Programs 4-Column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {programs.map((program, index) => (
-            <div
+            <Link
               key={program.id}
+              to={
+                program.title?.toLowerCase().includes("drone")
+                  ? '/drone'
+                  : program.title?.toLowerCase().includes("charging") || program.title?.toLowerCase().includes("fast") || program.title?.toLowerCase().includes("battery")
+                  ? '/charging'
+                  : program.title?.toLowerCase().includes("ev") || program.title?.toLowerCase().includes("electric") || program.title?.toLowerCase().includes("embedded")
+                  ? '/ev'
+                  : '/coding'
+              }
               ref={addToRefs}
-              className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 hover:from-gray-700 hover:to-gray-800 transition-all duration-500 border border-gray-700/50 hover:border-gray-600/50 cursor-pointer"
+              className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 sm:p-8 hover:from-gray-700 hover:to-gray-800 transition-all duration-500 border border-gray-700/50 hover:border-gray-600/50 cursor-pointer block w-full"
             >
               {/* Program Header */}
               <div className="flex items-start justify-between mb-6">
@@ -379,13 +420,13 @@ const TechPrograms = () => {
                  
                 </div>
                 
-                <button 
+                <div 
                   className="group/btn flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:gap-3"
                   style={{ backgroundColor: program.color }}
                 >
-                  Enroll Now
+                  View Details
                   <ArrowRight className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                </div>
               </div>
 
               {/* Hover Effect */}
@@ -396,7 +437,7 @@ const TechPrograms = () => {
                   boxShadow: `0 20px 40px ${program.color}20`
                 }}
               />
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -415,7 +456,7 @@ const TechPrograms = () => {
               </div>
               
               <div className="stat-number text-3xl font-bold text-white mb-2">
-                {stat.number}{stat.label.includes('Rate') ? '%' : '+'}
+                <AnimatedCounter value={`${stat.number}${stat.label.includes('Rate') ? '%' : '+'}`} />
               </div>
               
               <div className="text-sm text-gray-400 font-medium">

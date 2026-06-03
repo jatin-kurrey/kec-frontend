@@ -1,80 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Clock, Calendar, Award, Users, Star, BookOpen, Target, Zap, CheckCircle, ArrowRight, Shield, Rocket, GraduationCap } from 'lucide-react';
-import axios from 'axios';
+import AnimatedCounter from './AnimatedCounter';
+
+// Static promotional data — all live exam dates and controls are managed
+// exclusively from the Super 40 Admin Panel. The KEC website has no access
+// to the Super 40 backend for security and separation of concerns.
+const SUPER40_INFO = {
+  exam_year: '2026',
+  seats: '40',
+  acceptance_rate: '2%',
+  placement_record: '100%',
+  features: [
+    "40 Seats Only — Elite Program",
+    "Merit-based Scholarships",
+    "1:10 Faculty-Student Ratio",
+    "100% Placement Guarantee",
+    "Industry-focused Curriculum",
+    "Accelerated Learning Path",
+  ],
+  eligibility: [
+    "Minimum 75% in 10th / 12th Grade",
+    "Mathematics & Physics compulsory",
+    "Age limit: 16–20 years",
+    "Valid JEE / CET score accepted",
+  ],
+  total_marks: '180',
+  duration_hours: '3',
+  question_type: 'MCQ',
+  brochure_url: '',
+};
 
 const Super40EntranceExam = () => {
-  const [settings, setSettings] = useState({
-    super40_exam_year: '2024',
-    super40_seats: '40',
-    super40_acceptance_rate: '2%',
-    super40_placement_record: '100%',
-    super40_application_start: 'Jan 15, 2024',
-    super40_last_date: 'Mar 30, 2024',
-    super40_admit_card: 'Apr 15, 2024',
-    super40_exam_date: 'Apr 28, 2024',
-    super40_results_date: 'May 15, 2024',
-    super40_total_marks: '180',
-    super40_duration_hours: '3',
-    super40_question_type: 'MCQ',
-    super40_features: "40 Seats Only - Elite Program|Merit-based Scholarships|1:10 Faculty-Student Ratio|100% Placement Guarantee|Industry-focused Curriculum|Accelerated Learning Path",
-    super40_eligibility: "Minimum 85% in 12th Grade|Mathematics & Physics compulsory|Age limit: 17-20 years|Valid JEE/CET score accepted",
-    super40_brochure_url: ""
-  });
+  const settings = SUPER40_INFO;
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/settings')
-      .then(res => {
-        if (res.data) {
-          setSettings(prev => ({
-            ...prev,
-            ...res.data
-          }));
-        }
-      })
-      .catch(err => {
-        console.warn("Using static settings fallback for Super 40", err);
-      });
-  }, []);
-
-  const featuresList = settings.super40_features.split('|').filter(Boolean);
   const featureIcons = [Award, Star, Users, Target, BookOpen, Rocket];
   const featureColors = ["text-blue-400", "text-green-400", "text-orange-400", "text-red-400", "text-blue-400", "text-green-400"];
-  const features = featuresList.map((text, idx) => ({
+  const features = settings.features.map((text, idx) => ({
     text,
     icon: featureIcons[idx % featureIcons.length],
     color: featureColors[idx % featureColors.length]
   }));
 
-  const importantDates = [
-    { date: settings.super40_application_start, event: "Application Start", color: "bg-green-500", icon: Calendar },
-    { date: settings.super40_last_date, event: "Last Date to Apply", color: "bg-orange-500", icon: Clock },
-    { date: settings.super40_admit_card, event: "Admit Card Available", color: "bg-blue-500", icon: Shield },
-    { date: settings.super40_exam_date, event: "Entrance Exam", color: "bg-red-500", icon: Target },
-    { date: settings.super40_results_date, event: "Results Declaration", color: "bg-green-500", icon: Award }
-  ];
-
-  const eligibilityList = settings.super40_eligibility.split('|').filter(Boolean);
   const eligibilityColors = ["border-l-blue-400", "border-l-green-400", "border-l-orange-400", "border-l-red-400"];
-  const eligibilityCriteria = eligibilityList.map((text, idx) => ({
+  const eligibilityCriteria = settings.eligibility.map((text, idx) => ({
     text,
     color: eligibilityColors[idx % eligibilityColors.length]
   }));
 
   const stats = [
-    { number: settings.super40_seats, label: "Seats Only", color: "bg-blue-500/20 text-blue-400" },
-    { number: settings.super40_acceptance_rate, label: "Acceptance Rate", color: "bg-green-500/20 text-green-400" },
-    { number: settings.super40_placement_record, label: "Placement Record", color: "bg-orange-500/20 text-orange-400" }
+    { number: settings.seats, label: "Seats Only", color: "bg-blue-500/20 text-blue-400" },
+    { number: settings.acceptance_rate, label: "Acceptance Rate", color: "bg-green-500/20 text-green-400" },
+    { number: settings.placement_record, label: "Placement Record", color: "bg-orange-500/20 text-orange-400" }
   ];
 
   const examPattern = [
-    { value: settings.super40_total_marks, label: "Total Marks", color: "from-blue-500 to-blue-600" },
-    { value: settings.super40_duration_hours, label: "Hours Duration", color: "from-green-500 to-green-600" },
-    { value: settings.super40_question_type, label: "Question Type", color: "from-orange-500 to-orange-600" }
+    { value: settings.total_marks, label: "Total Marks", color: "from-blue-500 to-blue-600" },
+    { value: settings.duration_hours, label: "Hours Duration", color: "from-green-500 to-green-600" },
+    { value: settings.question_type, label: "Question Type", color: "from-orange-500 to-orange-600" }
   ];
 
   const handleDownloadBrochure = () => {
-    if (settings.super40_brochure_url) {
-      window.open(settings.super40_brochure_url, '_blank');
+    if (settings.brochure_url) {
+      window.open(settings.brochure_url, '_blank');
     } else {
       alert("Brochure is being prepared. Please check back soon or contact administration!");
     }
@@ -110,12 +97,12 @@ const Super40EntranceExam = () => {
               <h2 className="text-4xl lg:text-5xl font-bold text-white font-playfair mb-4">
                 Super 40 
                 <span className="block bg-gradient-to-r from-blue-400 via-green-400 to-orange-400 bg-clip-text text-transparent">
-                  Entrance Exam {settings.super40_exam_year}
+                  Entrance Exam {settings.exam_year}
                 </span>
               </h2>
               
               <p className="text-xl text-gray-300 mb-6 max-w-2xl">
-                Join the most prestigious engineering program. Only {settings.super40_seats} exceptional students 
+                Join the most prestigious engineering program. Only {settings.seats} exceptional students 
                 will be selected for this transformative journey towards excellence.
               </p>
 
@@ -123,7 +110,9 @@ const Super40EntranceExam = () => {
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {stats.map((stat, index) => (
                   <div key={index} className={`text-center p-4 rounded-lg backdrop-blur-sm border ${stat.color} border-opacity-30`}>
-                    <div className="text-2xl font-bold">{stat.number}</div>
+                    <div className="text-2xl font-bold">
+                      <AnimatedCounter value={stat.number} />
+                    </div>
                     <div className="text-sm text-gray-300">{stat.label}</div>
                   </div>
                 ))}
@@ -166,7 +155,7 @@ const Super40EntranceExam = () => {
             <div className="flex items-center justify-center lg:justify-start gap-6 text-sm text-gray-400">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-blue-400" />
-                <span>{settings.super40_duration_hours} Hour Exam</span>
+                <span>{settings.duration_hours} Hour Exam</span>
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4 text-green-400" />
@@ -191,24 +180,47 @@ const Super40EntranceExam = () => {
             </div>
 
             <div className="space-y-4">
-              {importantDates.map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-gradient-to-r from-white/5 to-white/10 rounded-lg border border-white/5 hover:border-white/20 transition-all duration-300 group hover:scale-102">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 ${item.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg`}>
-                      <item.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-white font-semibold">{item.event}</div>
-                      <div className="text-gray-300 text-sm font-medium">{item.date}</div>
-                    </div>
-                  </div>
-                  <div className={`w-3 h-3 rounded-full ${
-                    index === 0 ? 'bg-green-500 animate-pulse' : 
-                    index === 1 ? 'bg-orange-500' : 
-                    index === 2 ? 'bg-blue-500' : 'bg-red-500'
-                  }`}></div>
+              {/* Registration, Exam, and Results dates are set by the Super 40 admin */}
+              <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-green-500/10 to-green-500/5 rounded-lg border border-green-500/20">
+                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
+                  <Calendar className="w-6 h-6 text-white" />
                 </div>
-              ))}
+                <div>
+                  <div className="text-white font-semibold">Registration Window</div>
+                  <div className="text-gray-300 text-sm font-medium">Visit portal for current dates</div>
+                </div>
+                <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse ml-auto"></div>
+              </div>
+              <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-red-500/10 to-red-500/5 rounded-lg border border-red-500/20">
+                <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
+                  <Target className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-white font-semibold">Entrance Exam Date</div>
+                  <div className="text-gray-300 text-sm font-medium">Visit portal for schedule</div>
+                </div>
+                <div className="w-3 h-3 rounded-full bg-red-500 ml-auto"></div>
+              </div>
+              <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-500/10 to-blue-500/5 rounded-lg border border-blue-500/20">
+                <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
+                  <Award className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-white font-semibold">Results Declaration</div>
+                  <div className="text-gray-300 text-sm font-medium">Visit portal for results</div>
+                </div>
+                <div className="w-3 h-3 rounded-full bg-blue-500 ml-auto"></div>
+              </div>
+              <a
+                href="https://super40-frontend.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full py-3 bg-white/10 hover:bg-white/20 text-white text-sm font-bold rounded-lg border border-white/10 transition-all duration-300 group"
+              >
+                <Shield className="w-4 h-4 text-blue-400" />
+                View Live Schedule & Register
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
             </div>
 
             {/* Eligibility Criteria */}
@@ -232,7 +244,7 @@ const Super40EntranceExam = () => {
               {examPattern.map((item, index) => (
                 <div key={index} className="p-3 bg-gradient-to-br from-white/5 to-white/10 rounded-lg border border-white/10">
                   <div className={`bg-gradient-to-r ${item.color} bg-clip-text text-transparent font-bold text-lg`}>
-                    {item.value}
+                    <AnimatedCounter value={item.value} />
                   </div>
                   <div className="text-gray-400 text-xs mt-1">{item.label}</div>
                 </div>
@@ -243,10 +255,16 @@ const Super40EntranceExam = () => {
 
         {/* Bottom Banner */}
         <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-3 rounded-full text-sm font-semibold animate-pulse shadow-lg">
-            <Clock className="w-4 h-4" />
-            Early Application Deadline: {settings.super40_last_date} - Apply Now!
-          </div>
+          <a
+            href="https://super40-frontend.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-6 py-3 rounded-full text-sm font-semibold shadow-lg transition-all duration-300 hover:scale-105"
+          >
+            <Zap className="w-4 h-4" />
+            Apply Now — Limited Seats Available!
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
 
       </div>

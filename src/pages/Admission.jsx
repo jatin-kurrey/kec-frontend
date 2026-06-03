@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SEO from "../components/SEO";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import { admissionService } from "../api";
+import { admissionService, applicationService } from "../api";
 import {
   Download,
   FileText,
@@ -26,7 +26,9 @@ import {
   Users,
   Bookmark,
   Lightbulb,
-  Eye
+  Eye,
+  Star,
+  Car
 } from "lucide-react";
 
 const iconMap = {
@@ -68,6 +70,22 @@ const AdmissionKEC = () => {
 
   const { guide, steps = [], eligibility = [], documents = [], fees = [] } = admissionData || {};
 
+  const [appForm, setAppForm] = useState({ name: "", email: "", phone: "", course: "", message: "" });
+  const [appSubmitting, setAppSubmitting] = useState(false);
+
+  const handleAppChange = (e) => setAppForm({ ...appForm, [e.target.name]: e.target.value });
+
+  const handleAppSubmit = async (e) => {
+    e.preventDefault();
+    setAppSubmitting(true);
+    try {
+      await applicationService.submit({ form_type: "admission", name: appForm.name, email: appForm.email, phone: appForm.phone, data: { course: appForm.course, message: appForm.message } });
+      setAppForm({ name: "", email: "", phone: "", course: "", message: "" });
+      alert("Application submitted successfully!");
+    } catch (err) { alert("Failed to submit. Please try again."); }
+    setAppSubmitting(false);
+  };
+
   const renderIcon = (iconName, className = "w-6 h-6") => {
     const Icon = iconMap[iconName] || FileText;
     return <Icon className={className} />;
@@ -92,193 +110,384 @@ const AdmissionKEC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50/50 to-white">
       <SEO 
-        title="Admissions 2024-25" 
+        title="Admissions 2025-26" 
         description="Apply for admissions at Krishna Engineering College (KEC) Bhilai. Detailed information on eligibility, fee structure, and the admission process for B.Tech, M.Tech, and MBA."
         keywords="engineering admissions Bhilai, KEC fees, B.Tech eligibility, how to apply KEC, MBA admissions Chhattisgarh"
       />
-      {/* Hero Section - Redesigned */}
-      <section className="relative bg-gradient-to-br from-blue-900 to-blue-800 text-white overflow-hidden">
-        {/* Background with subtle pattern */}
-        <div className="absolute inset-0 bg-blue-950/50">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9IiMwMDczZmYiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4yIj48cGF0aCBkPSJNMzAgMTV2MzBNMTUgMzBoMzAiLz48L2c+PC9zdmc+')] opacity-10"></div>
+      {/* Hero / Header Section - Brochure Style */}
+      <section className="relative bg-gradient-to-br from-[#0c1530] via-[#111e47] to-[#0c1530] text-white overflow-hidden py-16 border-b-4 border-amber-500">
+        {/* Background Decorative patterns */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNmYWNjMTUiIHN0cm9rZS13aWR0aD0iMC41Ij48cGF0aCBkPSJNMzAgMTV2MzBNMTUgMzBoMzAiLz48L2c+PC9zdmc+')]"></div>
         </div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl -translate-y-12 translate-x-12"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl -translate-x-12 translate-y-12"></div>
 
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-700/10 rounded-full -translate-y-32 translate-x-32"></div>
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -translate-x-24 translate-y-24"></div>
-
-        <div className="relative max-w-7xl mx-auto px-4 py-16 lg:py-20">
-          <div className="text-center">
-            {/* College Logo/Badge */}
-
-            {/* Admission Badge */}
+        <div className="relative max-w-7xl mx-auto px-4">
+          <div className="flex flex-col items-center text-center">
+            {/* Department Badge */}
             <motion.div
-              className="inline-flex items-center bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 text-sm font-medium border border-white/30"
-              initial={{ opacity: 0, y: 10 }}
+              className="inline-flex items-center bg-amber-500/15 border border-amber-500/30 px-5 py-2 rounded-full mb-6 text-sm font-semibold tracking-wider text-amber-400 uppercase backdrop-blur-md"
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5 }}
             >
-              <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-              Admissions 2024-25 Open
+              <Building className="w-4 h-4 mr-2" />
+              Department of Admission & Marketing
             </motion.div>
 
-            {/* Main Heading */}
+            {/* Main Header Text */}
             <motion.h1
-              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight max-w-4xl mx-auto"
+              className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight leading-none text-white uppercase"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Welcome to{" "}
-              <span className="text-yellow-400">
-                Krishna Engineering College
-              </span>
+              Admission & <span className="text-amber-400">Marketing</span>
             </motion.h1>
 
-            {/* Subtitle */}
+            {/* Tagline */}
             <motion.p
-              className="text-lg md:text-xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed"
+              className="text-lg md:text-xl lg:text-2xl text-slate-300 font-medium italic mb-8 max-w-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Excellence in Technical Education Since 2011. Approved by AICTE
-              and Affiliated to CSVTU, Bhilai.
+              "Guiding Futures. Building Careers."
             </motion.p>
 
-            {/* Call to Action Buttons */}
+            {/* Quick Action CTAs */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+              className="flex flex-wrap gap-4 justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <motion.button
-                className="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-semibold px-8 py-3 rounded-lg transition-colors duration-300 flex items-center justify-center"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              <button
                 onClick={() => setActiveTab("apply")}
+                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-blue-950 font-extrabold px-8 py-3.5 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2 text-base"
               >
                 Apply Now
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </motion.button>
-
-              <motion.button
-                className="bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-300 border border-white/30 flex items-center justify-center backdrop-blur-sm"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                <ArrowRight className="w-5 h-5 text-blue-950" />
+              </button>
+              <a
+                href="/PROSPECTUS_26-27%20KEC%20Bhilai.pdf"
+                download
+                className="bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/30 font-bold px-8 py-3.5 rounded-xl shadow-md transition-all duration-300 flex items-center gap-2 backdrop-blur-md"
               >
-                <Download className="w-5 h-5 mr-2" />
+                <Download className="w-5 h-5" />
                 Download Brochure
-              </motion.button>
+              </a>
             </motion.div>
-
-            {/* Quick Stats */}
           </div>
         </div>
-
-        {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-blue-950 to-transparent"></div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 py-12 lg:py-16 -mt-20 relative z-10">
-        {/* Head of Admissions - Redesigned */}
-        <motion.div
-          className="bg-white rounded-2xl shadow-2xl p-8 mb-12 border border-blue-100/50 relative overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
+      {/* Main Core Brochure Content */}
+      <div className="max-w-7xl mx-auto px-4 py-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+          
+          {/* Left Column - Core Philosophy & Why Choose KEC */}
+          <div className="lg:col-span-8 space-y-8">
+            
+            {/* Sub-grid of Quote & Philosophy */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* APJ Abdul Kalam Quote */}
+              <motion.div 
+                className="bg-[#111e47]/5 border-l-4 border-amber-500 bg-white/60 backdrop-blur-sm p-6 rounded-r-2xl shadow-md flex flex-col justify-between"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="text-4xl text-amber-500/20 font-serif leading-none -mb-2">“</div>
+                <p className="text-slate-800 font-medium italic text-base leading-relaxed relative z-10 -mt-2">
+                  Education is not just about learning, it's about building a better tomorrow.
+                </p>
+                <div className="mt-4 border-t border-slate-200 pt-3">
+                  <span className="text-slate-500 text-xs font-bold tracking-wide block text-right">— A.P.J. Abdul Kalam</span>
+                </div>
+              </motion.div>
+
+              {/* Core Philosophy Highlights */}
+              <motion.div 
+                className="bg-white p-6 rounded-2xl shadow-md border border-slate-100/80 flex flex-col justify-between"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h4 className="text-blue-900 font-extrabold text-sm uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+                  Our core approach
+                </h4>
+                <div className="space-y-3">
+                  {[
+                    { text: "Student First Approach", color: "text-amber-500" },
+                    { text: "Transparent & Ethical Process", color: "text-emerald-500" },
+                    { text: "Career Oriented Guidance", color: "text-blue-500" },
+                    { text: "Committed to Excellence", color: "text-purple-500" }
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-3">
+                      <div className={`w-2 h-2 rounded-full bg-current ${item.color}`}></div>
+                      <span className="text-slate-700 font-bold text-sm">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Why Choose KEC List */}
+            <motion.div 
+              className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100/80"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="text-2xl font-black text-blue-950 mb-6 flex items-center gap-3 border-b border-slate-100 pb-4">
+                <Target className="text-amber-500 w-6 h-6 flex-shrink-0" />
+                Why Choose Krishna Engineering College?
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  {
+                    text: "48 Years of Educational Experience (KPS GROUP)",
+                    icon: <div className="w-7 h-7 rounded-full bg-purple-600 text-white font-extrabold text-[10px] flex items-center justify-center border border-purple-500 shadow-sm flex-shrink-0">48</div>
+                  },
+                  {
+                    text: "AICTE Approved and ISO Certified",
+                    icon: <Shield className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "Affiliated to CSVTU (Govt. Undertaking)",
+                    icon: <Building className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "In Campus Drone Piloting Training Courses with DGCA Certification",
+                    icon: <Target className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "Dedicated Drone and Electric Vehicle Lab",
+                    icon: <Car className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "Experienced Faculty & Industry Mentors",
+                    icon: <Users className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "Modern Infrastructure & Advanced Laboratories",
+                    icon: <Building className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "High-Tech AI LABS (in Collaboration with RIT EUROPE)",
+                    icon: <div className="w-6 h-5 rounded bg-purple-600 text-white font-extrabold text-[9px] flex items-center justify-center tracking-tighter shadow-sm flex-shrink-0">AI</div>
+                  },
+                  {
+                    text: "Start-up and Innovation Cell",
+                    icon: <Lightbulb className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "Strong Industry Connect & Placement Support",
+                    icon: <Target className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "Holistic Development & Innovation Driven Culture",
+                    icon: <Lightbulb className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "Best in Class Cricket Academy and Sports Clubs",
+                    icon: <Award className="text-purple-600 w-5 h-5 flex-shrink-0" />
+                  },
+                  {
+                    text: "Only College in Chhattisgarh having Pink Platform for Girls Safety and Wellness",
+                    icon: <div className="px-1.5 py-0.5 rounded bg-pink-500 text-white font-extrabold text-[6px] leading-none flex flex-col items-center justify-center tracking-tighter shadow-sm flex-shrink-0"><span className="block">PINK</span><span className="block">PLATFORM</span></div>
+                  }
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start gap-4 p-2.5 rounded-xl hover:bg-slate-50 transition-colors duration-300">
+                    <div className="p-1 rounded-lg mt-0.5 flex-shrink-0 flex items-center justify-center w-8 h-8 bg-purple-50">
+                      {item.icon}
+                    </div>
+                    <span className="text-slate-700 text-sm font-semibold leading-snug">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* Right Column - Premium Profile of Mr. Durga Prasanna Das */}
+          <div className="lg:col-span-4 lg:self-start">
+            <motion.div 
+              className="bg-gradient-to-b from-[#111e47] to-[#0c1530] rounded-3xl overflow-hidden shadow-2xl border-4 border-amber-500 relative flex flex-col"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              {/* Elegant header badge */}
+              <div className="absolute top-4 left-4 z-20 bg-amber-500 text-blue-950 text-xs font-black px-3 py-1.5 rounded-full shadow-md uppercase tracking-wider">
+                Admission Head
+              </div>
+
+              {/* Photo Area */}
+              <div className="relative aspect-[3/4] bg-[#0c1530] overflow-hidden flex items-center justify-center">
+                <img 
+                  src="/D,P,DAS 11.png" 
+                  alt="Mr. Durga Prasanna Das" 
+                  className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                />
+                
+                {/* Custom Diagonal Cut/Gradient Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c1530] via-transparent to-transparent opacity-80 pointer-events-none"></div>
+              </div>
+
+              {/* Designation Banner exactly like the brochure */}
+              <div className="bg-[#0c1530] border-t border-amber-500/30 p-6 text-center">
+                <h3 className="text-2xl font-black text-white tracking-wide">
+                  Mr. Durga Prasanna Das
+                </h3>
+                <p className="text-amber-400 font-extrabold text-sm tracking-wider uppercase mt-1">
+                  HEAD - ADMISSION & MARKETING
+                </p>
+                <p className="text-slate-400 text-xs font-semibold mt-1">
+                  Krishna Engineering College, Bhilai
+                </p>
+
+                {/* Experience Badge */}
+                <div className="mt-4 flex items-center justify-center gap-3">
+                  <div className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-amber-500" />
+                    <span className="text-slate-300 text-xs font-bold">15+ Years Experience</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                    <Award className="w-4 h-4 text-amber-500" />
+                    <span className="text-slate-300 text-xs font-bold">Industry Mentor</span>
+                  </div>
+                </div>
+
+                {/* Direct Actions */}
+                <div className="grid grid-cols-2 gap-3 mt-6">
+                  <a 
+                    href="tel:+919244005187"
+                    className="flex items-center justify-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-blue-950 font-black py-2.5 px-4 rounded-xl shadow-md transition-all duration-300 text-sm gap-2"
+                  >
+                    <Phone className="w-4 h-4 text-blue-950" />
+                    Call Now
+                  </a>
+                  <a 
+                    href="mailto:admissions@kecbhilai.com"
+                    className="flex items-center justify-center bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/30 font-bold py-2.5 px-4 rounded-xl shadow-md transition-all duration-300 text-sm gap-2"
+                  >
+                    <Mail className="w-4 h-4 text-amber-500" />
+                    Email
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+        </div>
+
+        {/* Super 40 Scholarship Section - Redesigned to exact Brochure Layout */}
+        <motion.div 
+          className="bg-gradient-to-br from-[#0c1530] via-[#111e47] to-[#0c1530] text-white rounded-3xl p-6 md:p-8 shadow-2xl border-2 border-amber-500 mb-12 relative overflow-hidden"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.6 }}
         >
-          {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-bl-full"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-yellow-100 rounded-tr-full"></div>
+          {/* Diagonal glowing beam */}
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-3xl -translate-y-32 translate-x-32"></div>
 
           <div className="relative z-10">
-            <div className="text-center mb-8">
-              <motion.div
-                className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-4"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <User className="w-4 h-4 mr-2" />
-                Meet Our Admission Head
-              </motion.div>
-              <h2 className="text-3xl font-bold text-blue-900 mb-4">
-                Your Admission Guide
+            {/* Header Banner */}
+            <div className="text-center mb-8 pb-6 border-b border-white/10">
+              <span className="inline-block bg-amber-500 text-[#0c1530] text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-3 shadow-md animate-pulse">
+                National Level Evaluation
+              </span>
+              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight uppercase leading-none">
+                Super 40 <span className="text-amber-400">Scholarship</span> Examination
               </h2>
-              <p className="text-blue-700 max-w-2xl mx-auto">
-                Our dedicated admission team is here to help you navigate the
-                application process and answer all your questions.
+              <p className="text-amber-400 font-extrabold text-sm md:text-lg tracking-widest uppercase mt-2">
+                YOUR TALENT. OUR REWARD.
+              </p>
+              <p className="text-slate-300 max-w-3xl mx-auto mt-4 text-sm md:text-base leading-relaxed">
+                Super 40 is a prestigious scholarship examination designed for bright and deserving students aspiring to pursue B.Tech at Krishna Engineering College. It rewards exceptional merit and supports future technical innovators.
               </p>
             </div>
 
-            {guide && (
-              <div className="flex flex-col lg:flex-row items-center gap-8 bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-2xl border border-blue-200/50">
-                {/* Image */}
-                <div className="flex-shrink-0">
-                  <div className="relative">
-                    <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl">
-                      <img
-                        src={guide.image}
-                        alt={guide.name}
-                        className="w-full h-full object-cover"
-                      />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              {/* Left Side: Highlights */}
+              <div className="lg:col-span-5 space-y-4">
+                <h4 className="text-amber-400 font-black text-sm uppercase tracking-wider border-b border-white/10 pb-2 flex items-center gap-2">
+                  <Star className="w-4 h-4 text-amber-400" />
+                  Key Highlights
+                </h4>
+                <div className="space-y-3">
+                  {[
+                    "Open for students of Class 12 (All Streams - PCM preferred)",
+                    "Attractive Scholarships up to 100% on Tuition Fees",
+                    "Merit Based - Fair and Transparent Process",
+                    "A Gateway to Quality Engineering Education",
+                    "Shape your future with the right start"
+                  ].map((highlight, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <div className="bg-amber-500/20 p-0.5 rounded mt-0.5 flex-shrink-0">
+                        <CheckCircle className="text-amber-400 w-4 h-4" />
+                      </div>
+                      <span className="text-slate-200 text-sm font-semibold">{highlight}</span>
                     </div>
-                    <div className="absolute -bottom-2 -right-2 bg-blue-600 text-white p-2 rounded-full shadow-lg">
-                      <Award className="w-5 h-5" />
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
-                {/* Content */}
-                <div className="flex-1 text-center lg:text-left">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-blue-900 mb-2">
-                    {guide.name}
-                  </h3>
-
-                  <p className="text-blue-700 font-medium mb-4">
-                    {guide.position}
-                  </p>
-
-                  <div className="mb-4 space-y-2">
-                    <p className="text-gray-600 flex items-center justify-center lg:justify-start">
-                      <BookOpen className="w-4 h-4 mr-2 text-blue-600" />
-                      {guide.qualification}
-                    </p>
-                    <p className="text-gray-600 flex items-center justify-center lg:justify-start">
-                      <Clock className="w-4 h-4 mr-2 text-blue-600" />
-                      {guide.experience}
-                    </p>
-                  </div>
-
-                  <p className="text-blue-800 italic mb-6 border-l-4 border-blue-400 pl-4 py-2 bg-white/50 rounded-r-lg">
-                    "{guide.message}"
-                  </p>
-
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <motion.a
-                      href={`mailto:${guide.email}`}
-                      className="flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <Mail className="w-4 h-4 mr-2" />
-                      Send Email
-                    </motion.a>
-                    <motion.a
-                      href={`tel:${guide.phone}`}
-                      className="flex items-center justify-center border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-600 hover:text-white transition-colors"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <Phone className="w-4 h-4 mr-2" />
-                      Call Now
-                    </motion.a>
-                  </div>
+                <div className="pt-4">
+                  <a 
+                    href="https://super40-frontend.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-blue-950 font-black px-6 py-3 rounded-xl shadow-lg transition-all duration-300 hover:scale-105 gap-2 text-sm uppercase tracking-wider w-full justify-center sm:w-auto"
+                  >
+                    Enter Exam Portal
+                    <ArrowRight className="w-4 h-4 text-blue-950" />
+                  </a>
                 </div>
               </div>
-            )}
+
+              {/* Right Side: Benefits Grid */}
+              <div className="lg:col-span-7">
+                <h4 className="text-amber-400 font-black text-sm uppercase tracking-wider mb-4 border-b border-white/10 pb-2 flex items-center gap-2">
+                  <GraduationCap className="w-4 h-4 text-amber-400" />
+                  Scholarship Benefits
+                </h4>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { pct: "100%", label: "Scholarship", sub: "for Top Rankers", color: "from-amber-400 to-yellow-500" },
+                    { pct: "75%", label: "Scholarship", sub: "for Outstanding", color: "from-slate-200 to-slate-400" },
+                    { pct: "50%", label: "Scholarship", sub: "for High Achievers", color: "from-amber-600 to-amber-800" },
+                    { pct: "25%", label: "Scholarship", sub: "for Meritorious", color: "from-blue-400 to-blue-600" }
+                  ].map((benefit, idx) => (
+                    <div 
+                      key={idx} 
+                      className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center hover:bg-white/10 transition-all duration-300 flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className={`text-3xl md:text-4xl font-black bg-gradient-to-r ${benefit.color} bg-clip-text text-transparent`}>
+                          {benefit.pct}
+                        </span>
+                        <p className="text-white font-extrabold text-xs uppercase tracking-wider mt-2">
+                          {benefit.label}
+                        </p>
+                      </div>
+                      <p className="text-slate-300 text-[10px] md:text-xs font-semibold mt-2 border-t border-white/5 pt-2">
+                        {benefit.sub}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
           </div>
         </motion.div>
+
 
         <div className="flex flex-wrap justify-center mb-8 gap-2">
           {tabs.map((tab) => {
@@ -518,13 +727,13 @@ const AdmissionKEC = () => {
                   Fill out the registration details below to apply for general admissions
                 </p>
               </div>
-              <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={handleAppSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-blue-900 mb-2 font-medium">
                     Full Name *
                   </label>
                   <input
-                    type="text"
+                    type="text" name="name" value={appForm.name} onChange={handleAppChange}
                     required
                     className="w-full p-4 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent"
                   />
@@ -534,7 +743,7 @@ const AdmissionKEC = () => {
                     Email *
                   </label>
                   <input
-                    type="email"
+                    type="email" name="email" value={appForm.email} onChange={handleAppChange}
                     required
                     className="w-full p-4 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent"
                   />
@@ -544,7 +753,7 @@ const AdmissionKEC = () => {
                     Phone Number *
                   </label>
                   <input
-                    type="tel"
+                    type="tel" name="phone" value={appForm.phone} onChange={handleAppChange}
                     required
                     className="w-full p-4 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent"
                   />
@@ -553,21 +762,15 @@ const AdmissionKEC = () => {
                   <label className="block text-blue-900 mb-2 font-medium">
                     Select Course *
                   </label>
-                  <select className="w-full p-4 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent">
-                    <option>Select Course</option>
+                  <select name="course" value={appForm.course} onChange={handleAppChange} className="w-full p-4 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent">
+                    <option value="">Select Course</option>
                     <option>B.Tech - Computer Science & Engineering</option>
-                    <option>
-                      B.Tech - Artificial Intelligence & Machine Learning
-                    </option>
+                    <option>B.Tech - Artificial Intelligence & Machine Learning</option>
                     <option>B.Tech - Information Technology</option>
                     <option>B.Tech - Mechanical Engineering</option>
                     <option>B.Tech - Civil Engineering</option>
-                    <option>
-                      B.Tech - Electronics & Communication Engineering
-                    </option>
-                    <option>
-                      B.Tech - Electrical & Electronics Engineering
-                    </option>
+                    <option>B.Tech - Electronics & Communication Engineering</option>
+                    <option>B.Tech - Electrical & Electronics Engineering</option>
                     <option>M.Tech</option>
                     <option>MBA</option>
                   </select>
@@ -577,6 +780,7 @@ const AdmissionKEC = () => {
                     Message (Optional)
                   </label>
                   <textarea
+                    name="message" value={appForm.message} onChange={handleAppChange}
                     rows="4"
                     className="w-full p-4 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent"
                   ></textarea>
@@ -584,12 +788,13 @@ const AdmissionKEC = () => {
                 <div className="md:col-span-2 flex justify-center mt-4">
                   <motion.button
                     type="submit"
-                    className="bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white font-semibold py-4 px-12 rounded-xl transition-all duration-300 flex items-center"
+                    disabled={appSubmitting}
+                    className="bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white font-semibold py-4 px-12 rounded-xl transition-all duration-300 flex items-center disabled:opacity-60"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <FileText className="mr-2" size={20} />
-                    Submit Application
+                    {appSubmitting ? "Submitting..." : "Submit Application"}
                   </motion.button>
                 </div>
               </form>

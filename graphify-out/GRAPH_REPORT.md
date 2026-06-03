@@ -1,16 +1,16 @@
-# Graph Report - kec-frontend  (2026-05-25)
+# Graph Report - kec-frontend  (2026-05-28)
 
 ## Corpus Check
-- 77 files · ~437,196 words
+- 81 files · ~18,103,205 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 371 nodes · 538 edges · 33 communities (21 shown, 12 thin omitted)
+- 379 nodes · 551 edges · 33 communities (21 shown, 12 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4b489d04`
+- Built from commit: `59585f72`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -63,22 +63,22 @@
 
 ### Community 0 - "Community 0"
 Cohesion: 0.07
-Nodes (49): About, AdminLayout, AdminLogin, AdminManager, AdmissionKEC, AdmissionManager, AdvancedCodingRegistration, AffiliationAccreditation (+41 more)
+Nodes (50): About, AdminLayout, AdminLogin, AdminManager, AdmissionKEC, AdmissionManager, AdvancedCodingRegistration, AffiliationAccreditation (+42 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.07
-Nodes (18): AdminLayout(), getAdminUser(), Dashboard(), StatCard(), GalleryAdminLayout(), getAdminUser(), adminAccountService, api (+10 more)
+Nodes (18): AdminLayout(), getAdminUser(), GalleryAdminLayout(), getAdminUser(), adminAccountService, api, authService, examService (+10 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.08
+Cohesion: 0.07
 Nodes (15): alumniService, CampusLife(), CollegeDashboard(), CollegeAchievements(), AlumniSuccessStories(), fadeImgVariants, HeroSection(), slides (+7 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.1
+Cohesion: 0.09
 Nodes (12): Footer(), icons, Loader(), affiliations, Navbar(), PageLoader(), ScrollToTop(), Topbar() (+4 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.12
+Cohesion: 0.1
 Nodes (12): admissionService, placementService, columns, companiesData, CompaniesVisitedTable(), customStyles, CustomTableHeader(), SEO() (+4 more)
 
 ### Community 5 - "Community 5"
@@ -106,44 +106,44 @@ Cohesion: 0.15
 Nodes (11): 🔴 1. Critical React State Violation (App Crash Risk), 1. Executive Summary, 🔴 2. Missing Form Fields (Data Collection Failure), 2. Performance Summary & Metrics, 3. Critical Bugs & Structural Failures Detected, 🟠 3. Invalid HTML Wrapping (Accessibility Break), 🟠 4. Hash Jumps Destroying Smooth Scroll, 4. Proposed Fix Timeline (+3 more)
 
 ### Community 11 - "Community 11"
+Cohesion: 0.21
+Nodes (4): Dashboard(), StatCard(), applicationService, DroneTechnologyRegistration()
+
+### Community 12 - "Community 12"
 Cohesion: 0.33
 Nodes (5): courseService, CourseManager(), iconOptions, Courses(), iconMap
 
-### Community 12 - "Community 12"
+### Community 13 - "Community 13"
 Cohesion: 0.36
 Nodes (4): researchService, iconMap, Research(), ResearchManager()
 
-### Community 13 - "Community 13"
+### Community 14 - "Community 14"
 Cohesion: 0.25
 Nodes (6): 💼 1. Built-in CRM (Lead & Admission Management), 🛡️ 2. Maker-Checker System (Approval Workflows), 📂 3. Document Verification Portal, 💸 4. Payment Tracking & Fee Collection, 🎨 5. Homepage & UI Control Engine, Admin & Management Feature Proposals (KEC)
 
-### Community 14 - "Community 14"
+### Community 15 - "Community 15"
 Cohesion: 0.38
 Nodes (3): facultyService, FacultyPage(), FacultyManager()
 
-### Community 15 - "Community 15"
-Cohesion: 0.38
-Nodes (3): facilityService, EnhancedFacilities(), FacilityManager()
-
 ## Knowledge Gaps
-- **48 isolated node(s):** `api`, `token`, `uploadService`, `iconMap`, `1.1 Technology Stack` (+43 more)
+- **48 isolated node(s):** `EBrochure`, `api`, `token`, `iconMap`, `1.1 Technology Stack` (+43 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **12 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `contentService` connect `Community 6` to `Community 1`, `Community 9`, `Community 7`?**
+- **Why does `contentService` connect `Community 6` to `Community 9`, `Community 11`, `Community 1`, `Community 7`?**
   _High betweenness centrality (0.037) - this node is a cross-community bridge._
 - **Why does `leadershipService` connect `Community 7` to `Community 1`?**
   _High betweenness centrality (0.025) - this node is a cross-community bridge._
 - **Why does `departmentService` connect `Community 9` to `Community 1`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
-- **What connects `api`, `token`, `uploadService` to the rest of the system?**
+- **What connects `EBrochure`, `api`, `token` to the rest of the system?**
   _48 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.07 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.07 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07 - nodes in this community are weakly interconnected._

@@ -46,28 +46,28 @@ export const colors = {
 
 export const affiliations = [
   {
-    img: "https://i0.wp.com/sjbit.edu.in/wp-content/uploads/2021/07/NAAC-Logo-250x250-1.png?ssl=1",
-    label: "NAAC Accredited",
+    img: "/Unknown.jpg",
+    label: "Approved by AICTE",
     color: "text-orange-500",
     bgColor: "#fed7aa",
   },
   {
-    img: "https://upload.wikimedia.org/wikipedia/en/5/52/National_Institutional_Ranking_Framework_logo.png",
-    label: "NIRF Ranked",
-    color: "text-green-500",
-    bgColor: "#bbf7d0",
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx0MXjwnJVBVGn2aq6GwXvS7M4UV_EeksTlQ&s",
-    label: "NBA Accredited",
+    img: "/Unknown-2.jpg",
+    label: "CSVTU Affiliated",
     color: "text-blue-500",
     bgColor: "#bfdbfe",
   },
   {
-    img: "https://static.wixstatic.com/media/9d31c9_8d868574531544b78f5dcf11679c32c5~mv2.png/v1/fill/w_509,h_491,al_c/9d31c9_8d868574531544b78f5dcf11679c32c5~mv2.png",
-    label: "Approved by AICTE",
-    color: "text-purple-500",
-    bgColor: "#e9d5ff",
+    img: "https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg",
+    label: "Google Cloud Partner",
+    color: "text-sky-500",
+    bgColor: "#e0f2fe",
+  },
+  {
+    img: "https://www.vectorlogo.zone/logos/ibm/ibm-icon.svg",
+    label: "IBM Skills Partner",
+    color: "text-blue-700",
+    bgColor: "#dbeafe",
   },
 ];
 

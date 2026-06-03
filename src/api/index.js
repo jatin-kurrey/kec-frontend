@@ -56,6 +56,8 @@ export const uploadService = {
 export const contentService = {
   getNotices: () => api.get('notices'),
   createNotice: (data) => api.post('admin/notices', data),
+  updateNotice: (id, data) => api.put(`admin/notices/${id}`, data),
+  deleteNotice: (id) => api.delete(`admin/notices/${id}`),
   getGallery: () => api.get('gallery'),
   addToGallery: (data) => api.post('admin/gallery', data),
   updateGallery: (id, data) => api.put(`admin/gallery/${id}`, data),
@@ -172,7 +174,7 @@ export const admissionService = {
 
   createFee: (data) => api.post("admin/admission/fees", data),
   updateFee: (id, data) => api.put(`admin/admission/fees/${id}`, data),
-  deleteResponse: (id) => api.delete(`admin/exams/responses/${id}`),
+  deleteFee: (id) => api.delete(`admin/admission/fees/${id}`),
 };
 
 export const facilityService = {
@@ -239,6 +241,16 @@ export const adminAccountService = {
 export const settingsService = {
   get: () => api.get('settings'),
   update: (key, value) => api.put('admin/settings', { key, value }),
+};
+
+export const eventService = {
+  getAll: () => api.get('events'),
+
+  // Admin
+  getAllAdmin: () => api.get('admin/events'),
+  create: (data) => api.post('admin/events', data),
+  update: (id, data) => api.put(`admin/events/${id}`, data),
+  delete: (id) => api.delete(`admin/events/${id}`),
 };
 
 export default api;

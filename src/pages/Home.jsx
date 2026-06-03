@@ -8,7 +8,6 @@ import CoursesOffered from "../components/CoursesOffered";
 import AboutSection from "../components/AboutSection";
 import Leadership from "../components/Leadership";
 import AlumniSection from "../components/alumni";
-import UniversitySection from "../components/UniversitySection";
 import AchievementsSection from "../components/AchievementsSection";
 import SkillDevelopment from "../components/SkillDevelopment";
 import Super40CTA from "../components/Super40CTA";

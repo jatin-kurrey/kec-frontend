@@ -1,6 +1,6 @@
-"use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { applicationService } from "../api";
 import { 
   Mail, 
   Phone, 
@@ -34,18 +34,18 @@ const ContactUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    console.log(formData);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: ""
-    });
+    try {
+      await applicationService.submit({
+        form_type: "contact",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        data: { subject: formData.subject, message: formData.message }
+      });
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (err) {
+      alert("Failed to send message. Please try again.");
+    }
     setIsSubmitting(false);
   };
 
@@ -84,13 +84,13 @@ const ContactUs = () => {
   ];
 
   return (
-    <div id="contact" className="w-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-16 md:py-24 px-4 md:px-8 overflow-hidden">
+    <div id="contact" className="w-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-16 md:py-24 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Enhanced Header */}
         <motion.div 
           className="text-center mb-16 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
@@ -111,7 +111,7 @@ const ContactUs = () => {
         <motion.div 
           className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16 md:mb-20"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {stats.map((stat, index) => (
@@ -126,7 +126,7 @@ const ContactUs = () => {
           {/* Left Side - Contact Information */}
           <motion.div
             initial={{ x: -50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
+            animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
             className="w-full xl:w-2/5 space-y-8"
           >
@@ -156,7 +156,7 @@ const ContactUs = () => {
           {/* Right Side - Form */}
           <motion.div
             initial={{ x: 50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
+            animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full xl:w-3/5"
           >

@@ -14,7 +14,11 @@ import {
   GraduationCap,
   Building,
   BookOpen,
-  Microscope
+  Microscope,
+  Briefcase,
+  Sun,
+  UserCheck,
+  Calendar
 } from 'lucide-react';
 import { authService } from '../api';
 
@@ -63,10 +67,14 @@ const AdminLayout = () => {
     { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
     { name: 'Departments', path: '/admin/departments', icon: Building },
     { name: 'Programs', path: '/admin/courses', icon: BookOpen },
+    { name: 'Summer Programs', path: '/admin/summer', icon: Sun },
     { name: 'Research', path: '/admin/research', icon: Microscope },
     { name: 'Admission', path: '/admin/admission', icon: FileText },
     { name: 'Facilities', path: '/admin/facilities', icon: Building },
     { name: 'Faculty', path: '/admin/faculty', icon: Users },
+    { name: 'Placements', path: '/admin/placements', icon: Briefcase },
+    { name: 'Alumni', path: '/admin/alumni', icon: UserCheck },
+    { name: 'Events', path: '/admin/events', icon: Calendar },
     { name: 'Content Manager', path: '/admin/content', icon: FileText },
     { name: 'Gallery', path: '/admin/gallery', icon: ImageIcon },
     { name: 'Leadership', path: '/admin/leadership', icon: GraduationCap },

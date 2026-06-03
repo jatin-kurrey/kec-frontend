@@ -35,6 +35,7 @@ const Drone = lazy(() => import("./pages/Drone"));
 const EV = lazy(() => import("./pages/EV"));
 const AdvancedCodingRegistration = lazy(() => import("./pages/Coding"));
 const ChargingTechnologyRegistration = lazy(() => import("./pages/FastCharging"));
+const EBrochure = lazy(() => import("./pages/EBrochure"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Admin Components
@@ -46,12 +47,17 @@ const DepartmentManager = lazy(() => import("./admin/pages/DepartmentManager"));
 const FacultyManager = lazy(() => import("./admin/pages/FacultyManager"));
 const FacilityManager = lazy(() => import("./admin/pages/FacilityManager"));
 const CourseManager = lazy(() => import("./admin/pages/CourseManager"));
+const SummerManager = lazy(() => import("./admin/pages/SummerManager"));
 const ResearchManager = lazy(() => import("./admin/pages/ResearchManager"));
 const AdmissionManager = lazy(() => import("./admin/pages/AdmissionManager"));
 const GalleryManager = lazy(() => import("./admin/pages/GalleryManager"));
 const AdminManager = lazy(() => import("./admin/pages/AdminManager"));
+const ContentManager = lazy(() => import("./admin/pages/ContentManager"));
 const GalleryAdminLayout = lazy(() => import("./admin/GalleryAdminLayout"));
 const GalleryAdminLogin = lazy(() => import("./admin/GalleryAdminLogin"));
+const PlacementManager = lazy(() => import("./admin/pages/PlacementManager"));
+const AlumniManager = lazy(() => import("./admin/pages/AlumniManager"));
+const EventsManager = lazy(() => import("./admin/pages/EventsManager"));
 
 const router = createBrowserRouter([
   {
@@ -88,6 +94,7 @@ const router = createBrowserRouter([
       { path: "ev", element: <EV /> },
       { path: "charging", element: <ChargingTechnologyRegistration /> },
       { path: "coding", element: <AdvancedCodingRegistration /> },
+      { path: "e-brochure", element: <EBrochure /> },
       { path: "*", element: <NotFound /> },
     ],
   },
@@ -99,16 +106,16 @@ const router = createBrowserRouter([
       { path: "departments", element: <DepartmentManager /> },
       { path: "faculty", element: <FacultyManager /> },
       { path: "courses", element: <CourseManager /> },
+      { path: "summer", element: <SummerManager /> },
       { path: "research", element: <ResearchManager /> },
       { path: "admission", element: <AdmissionManager /> },
       { path: "facilities", element: <FacilityManager /> },
-      { path: "content", element: <div className="text-slate-900 p-10 bg-white rounded-[2rem] border border-slate-100 shadow-sm">
-          <h2 className="text-2xl font-bold mb-4">Content Manager</h2>
-          <p className="text-slate-500">This module is currently under development.</p>
-        </div> 
-      },
+      { path: "content", element: <ContentManager /> },
       { path: "gallery", element: <GalleryManager /> },
       { path: "leadership", element: <LeadershipManager /> },
+      { path: "placements", element: <PlacementManager /> },
+      { path: "alumni", element: <AlumniManager /> },
+      { path: "events", element: <EventsManager /> },
       { path: "settings", element: <AdminManager /> },
     ]
   },

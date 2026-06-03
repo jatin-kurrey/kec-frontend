@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Youtube, MapPin } from "lucide-react";
 
@@ -66,7 +65,7 @@ const Topbar = () => {
 
             {/* Twitter */}
             <a 
-              href="javascript:void(0)" 
+              href="https://x.com/kec_bhilai" 
               className="group relative p-2 rounded-xl bg-white/5 hover:bg-cyan-600/30 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/25"
             >
               <Twitter size={16} className="text-cyan-400 group-hover:text-white transition-colors" />
@@ -84,7 +83,7 @@ const Topbar = () => {
 
             {/* LinkedIn */}
             <a 
-              href="javascript:void(0)" 
+              href="https://www.linkedin.com/school/krishna-engineering-college-bhilai" 
               className="group relative p-2 rounded-xl bg-white/5 hover:bg-blue-700/30 backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-600/25"
             >
               <Linkedin size={16} className="text-blue-300 group-hover:text-white transition-colors" />
@@ -93,7 +92,7 @@ const Topbar = () => {
 
             {/* YouTube */}
             <a 
-              href="javascript:void(0)" 
+              href="https://www.youtube.com/@kecbhilai" 
               className="group relative p-2 rounded-xl bg-white/5 hover:bg-red-600/30 backdrop-blur-sm border border-white/10 hover:border-red-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-red-500/25"
             >
               <Youtube size={16} className="text-red-400 group-hover:text-white transition-colors" />

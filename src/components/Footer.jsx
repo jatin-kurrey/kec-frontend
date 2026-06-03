@@ -23,6 +23,7 @@ import {
   Globe,
   Star
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   // Modern color palette
@@ -40,7 +41,7 @@ const Footer = () => {
     { name: "Admissions", url: "/admission", icon: Users, color: colors.secondary },
     { name: "Departments", url: "/departments", icon: BookOpen, color: colors.accent },
     { name: "Placements", url: "/placements", icon: Target, color: colors.success },
-    { name: "Event", url: "/events", icon: Clock, color: colors.primary },
+    { name: "Event", url: "/event", icon: Clock, color: colors.primary },
     { name: "Contact", url: "/contact", icon: Send, color: colors.secondary },
   ];
 
@@ -55,6 +56,12 @@ const Footer = () => {
       icon: Phone,
       text: "WhatsApp: +91 92440 05187",
       subtext: "",
+      color: colors.success
+    },
+    {
+      icon: Phone,
+      text: "Other Enquiries: 92851 23400",
+      subtext: "90398 09822",
       color: colors.success
     },
     {
@@ -86,7 +93,7 @@ const Footer = () => {
     },
     { 
       icon: Twitter, 
-      url: "javascript:void(0)", 
+      url: "https://x.com/kec_bhilai", 
       name: "Twitter",
       color: colors.primary,
     },
@@ -116,13 +123,12 @@ const Footer = () => {
       
 
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto  py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
+      <div className="max-w-7xl mx-auto py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
           
           {/* Brand Section */}
-          <div className="lg:col-span-2 xl:col-span-1">
+          <div>
             <div className="flex items-center gap-4 mb-6">
-              
               <div>
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
                   Krishna Engineering College
@@ -131,7 +137,7 @@ const Footer = () => {
               </div>
             </div>
             
-            <p className="text-slate-300 mb-6 leading-relaxed">
+            <p className="text-slate-300 mb-6 leading-relaxed text-sm">
               Premier institution nurturing future engineers with cutting-edge education, 
               industry collaboration, and innovative research since 2009.
             </p>
@@ -178,21 +184,21 @@ const Footer = () => {
             </h4>
             <div className="grid grid-cols-1 gap-2">
               {quickLinks.map((link, index) => (
-                <a 
+                <Link
                   key={index}
-                  href={link.url} 
+                  to={link.url}
                   className="group flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
                 >
-                  <div 
+                  <div
                     className="p-2 rounded-lg transition-transform duration-300 group-hover:scale-110"
                     style={{ backgroundColor: `${link.color}20` }}
                   >
                     <link.icon className="w-4 h-4" style={{ color: link.color }} />
                   </div>
-                  <span className="text-slate-300 group-hover:text-white transition-colors font-medium">
+                  <span className="text-slate-300 group-hover:text-white transition-colors font-medium text-sm">
                     {link.name}
                   </span>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -246,15 +252,92 @@ const Footer = () => {
               />
             </div>
             <div className="mt-4 flex gap-2">
-              <button className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2">
+              <a href="tel:+917000130299" className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm">
                 <Phone className="w-4 h-4" />
                 Call
-              </button>
-              <button className="flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2">
+              </a>
+              <a href="mailto:krishnaengineeringcollege@gmail.com" className="flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm">
                 <Mail className="w-4 h-4" />
                 Email
-              </button>
+              </a>
             </div>
+          </div>
+
+        </div>
+
+        {/* Admission Related Queries Highlighted Rectangular Banner */}
+        <div className="bg-[#101e42] border-2 border-amber-500 rounded-xl overflow-hidden shadow-2xl mb-8">
+          {/* Header */}
+          <div className="bg-[#0b1633] py-3 text-center border-b border-amber-500/20">
+            <span className="text-amber-400 font-bold text-base md:text-xl tracking-wide uppercase flex items-center justify-center gap-2">
+              ★ For admission related queries, please contact ★
+            </span>
+          </div>
+          
+          {/* Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 md:p-8 items-center relative">
+            {/* Person 1 */}
+            <div className="flex flex-col items-center text-center space-y-1">
+              <h5 className="text-white font-extrabold text-lg md:text-2xl tracking-wide">
+                Mr. Durga Prasanna Das
+              </h5>
+              <p className="text-slate-300 text-xs md:text-sm font-semibold uppercase tracking-wider">
+                Head-Admissions & Marketing
+              </p>
+              <a 
+                href="tel:+919244005187" 
+                className="text-amber-400 font-black text-lg md:text-2xl hover:text-amber-300 transition-colors flex items-center gap-2 mt-2 bg-amber-500/10 px-4 py-1.5 rounded-lg border border-amber-500/20"
+              >
+                <Phone className="w-4 h-4 md:w-5 h-5 text-amber-500" />
+                +91 9244005187
+              </a>
+              <a 
+                href="mailto:admissions@kecbhilai.com" 
+                className="text-slate-300 text-xs md:text-sm hover:text-white transition-colors underline decoration-dotted mt-1 block"
+              >
+                admissions@kecbhilai.com
+              </a>
+            </div>
+
+            {/* Vertical Divider (Desktop Only) */}
+            <div className="hidden md:block absolute left-1/2 top-6 bottom-6 w-0.5 bg-amber-500/40"></div>
+
+            {/* Person 2 */}
+            <div className="flex flex-col items-center text-center space-y-1 pt-6 md:pt-0 border-t border-slate-700/50 md:border-t-0">
+              <h5 className="text-white font-extrabold text-lg md:text-2xl tracking-wide">
+                Mr. Avinash Kumar Pradhan
+              </h5>
+              <p className="text-slate-300 text-xs md:text-sm font-semibold uppercase tracking-wider">
+                Admissions & Marketing Incharge
+              </p>
+              <a 
+                href="tel:+918319767371" 
+                className="text-amber-400 font-black text-lg md:text-2xl hover:text-amber-300 transition-colors flex items-center gap-2 mt-2 bg-amber-500/10 px-4 py-1.5 rounded-lg border border-amber-500/20"
+              >
+                <Phone className="w-4 h-4 md:w-5 h-5 text-amber-500" />
+                +91 83197 67371
+              </a>
+              <a 
+                href="mailto:admissions@kecbhilai.com" 
+                className="text-slate-300 text-xs md:text-sm hover:text-white transition-colors underline decoration-dotted mt-1 block"
+              >
+                admissions@kecbhilai.com
+              </a>
+            </div>
+          </div>
+          
+          {/* Other General Enquiries */}
+          <div className="bg-[#0b1633] border-t border-amber-500/20 py-5 text-center flex flex-col items-center justify-center gap-1">
+            <span className="text-slate-400 font-extrabold text-xs uppercase tracking-wider block">
+              ★ FOR OTHER GENERAL ENQUIRIES, PLEASE CONTACT ★
+            </span>
+            <a 
+              href="tel:+919285123400" 
+              className="text-amber-400 font-black text-xl md:text-3xl hover:text-amber-300 transition-colors flex items-center justify-center gap-3 mt-1"
+            >
+              <Phone className="w-5 h-5 md:w-6 h-6 text-amber-500 animate-bounce" />
+              92851 23400 / 90398 09822
+            </a>
           </div>
         </div>
 
@@ -266,9 +349,9 @@ const Footer = () => {
           </h4>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
             {kpsSchools.map((school, index) => (
-              <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-white/5">
-                <Star className="w-3 h-3 text-yellow-400" />
-                <span className="text-sm text-slate-300">{school}</span>
+              <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                <Star className="w-3 h-3 text-yellow-400 flex-shrink-0" />
+                <span className="text-sm text-slate-300 font-medium">{school}</span>
               </div>
             ))}
           </div>

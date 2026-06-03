@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
   BookOpen, 
-  Search, 
   Plus, 
   Edit3, 
   Trash2, 
@@ -12,7 +11,6 @@ import {
   Save,
   X,
   ArrowRight,
-  ChevronRight,
   Brain,
   Cpu,
   Shield,
@@ -22,7 +20,9 @@ import {
   BatteryCharging,
   Bot,
   Palette,
-  GraduationCap
+  Drone,
+  Car,
+  Code2
 } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { courseService } from '../../api';
@@ -36,6 +36,9 @@ const iconOptions = [
   { name: 'Zap', icon: Zap },
   { name: 'BatteryCharging', icon: BatteryCharging },
   { name: 'Bot', icon: Bot },
+  { name: 'Drone', icon: Drone },
+  { name: 'Car', icon: Car },
+  { name: 'Code2', icon: Code2 },
 ];
 
 const CourseManager = () => {
@@ -69,6 +72,8 @@ const CourseManager = () => {
       return Array.isArray(response.data) ? response.data : (response.data?.data || []);
     }
   });
+
+  const academicCourses = courses.filter(c => c.department !== "Summer Programs" && c.department !== "Advanced Tech Programs");
 
   const createMutation = useMutation({
     mutationFn: (data) => courseService.create(data),
@@ -192,7 +197,7 @@ const CourseManager = () => {
 
       {viewMode === 'list' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {courses.map((course) => {
+          {academicCourses.map((course) => {
             const IconComp = iconOptions.find(o => o.name === course.icon)?.icon || Brain;
             return (
               <div key={course.id} className="bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden group hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-500">
@@ -315,6 +320,7 @@ const CourseManager = () => {
                     <option value="Mechanical Engineering">Mechanical Engineering</option>
                     <option value="Electrical Engineering">Electrical Engineering</option>
                     <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Skill Development">Skill Development</option>
                   </select>
                 </div>
                 <div className="md:col-span-2 space-y-2">

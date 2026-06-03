@@ -16,14 +16,33 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { gsap } from "gsap";
+import { useQuery } from "@tanstack/react-query";
+import { placementService } from "../api";
 
 const PartnerShowcase = () => {
   const containerRef = useRef(null);
   const marqueeUpRef = useRef(null);
   const marqueeDownRef = useRef(null);
 
-  // Partner data with image URLs
-  const partners = [
+  // Tanstack query fetches
+  const { data: dbStats = [] } = useQuery({
+    queryKey: ['placement-stats-home'],
+    queryFn: async () => {
+      const response = await placementService.getStats();
+      return response.data?.data || [];
+    }
+  });
+
+  const { data: dbRecruiters = [] } = useQuery({
+    queryKey: ['recruiters-home'],
+    queryFn: async () => {
+      const response = await placementService.getRecruiters();
+      return response.data?.data || [];
+    }
+  });
+
+  // Default Partner data with image URLs
+  const defaultPartners = [
     {
       id: 1,
       name: "Tech Mahindra",
@@ -80,8 +99,17 @@ const PartnerShowcase = () => {
     },
   ];
 
+  const partners = dbRecruiters && dbRecruiters.length > 0
+    ? dbRecruiters.map(r => ({
+        id: r.id || r.ID,
+        name: r.name || r.Name,
+        logo: r.logo || r.logo_url || r.Logo || r.LogoURL,
+        category: r.category || r.Category || "General"
+      }))
+    : defaultPartners;
+
   // Placement statistics data
-  const placementStats = {
+  const defaultPlacementStats = {
     totalStudents: 1200,
     placedStudents: 980,
     highestPackage: "42 LPA",
@@ -90,6 +118,15 @@ const PartnerShowcase = () => {
     recruitingCompanies: 150,
     internationalOffers: 45,
   };
+
+  const placementStats = { ...defaultPlacementStats };
+  if (dbStats && dbStats.length > 0) {
+    dbStats.forEach(stat => {
+      if (stat.label) {
+        placementStats[stat.label] = stat.value;
+      }
+    });
+  }
 
   useEffect(() => {
     const ctx = gsap.context(() => {

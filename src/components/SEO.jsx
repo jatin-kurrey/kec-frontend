@@ -1,36 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const SEO = ({ title, description, keywords }) => {
+  const seoId = useRef(`seo-${Math.random().toString(36).slice(2)}`);
+
   useEffect(() => {
-    // Update Title
+    const id = seoId.current;
+    document.querySelectorAll(`[data-seo="${id}"]`).forEach(el => el.remove());
+
     if (title) {
       document.title = `${title} | KEC Bhilai`;
     }
 
-    // Update Meta Description
     if (description) {
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute('content', description);
-      } else {
-        const meta = document.createElement('meta');
-        meta.name = 'description';
-        meta.content = description;
-        document.head.appendChild(meta);
-      }
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = description;
+      meta.setAttribute('data-seo', id);
+      document.head.appendChild(meta);
     }
 
-    // Update Keywords
     if (keywords) {
-      const metaKeywords = document.querySelector('meta[name="keywords"]');
-      if (metaKeywords) {
-        metaKeywords.setAttribute('content', keywords);
-      } else {
-        const meta = document.createElement('meta');
-        meta.name = 'keywords';
-        meta.content = keywords;
-        document.head.appendChild(meta);
-      }
+      const meta = document.createElement('meta');
+      meta.name = 'keywords';
+      meta.content = keywords;
+      meta.setAttribute('data-seo', id);
+      document.head.appendChild(meta);
     }
   }, [title, description, keywords]);
 

@@ -1,12 +1,13 @@
-"use client";
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Menu,
   X,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Users,
   BookOpen,
   Briefcase,
@@ -18,7 +19,20 @@ import {
   Map,
   Send,
   GraduationCap,
+  Download,
+  QrCode,
+  Landmark,
+  Shield,
+  Clock,
+  Drone,
+  Car,
+  Code2,
+  Zap,
+  Plug,
+  Code
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { settingsService, courseService } from "../api";
 import { colors, affiliations, mainCategories } from "../data/navigation";
 
 // Register GSAP plugin
@@ -27,11 +41,81 @@ if (typeof window !== "undefined") {
 }
 
 const UniversityMenu = () => {
+  const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSubmenu, setMobileSubmenu] = useState(null);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+  const [isBrochureOpen, setIsBrochureOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [flipDirection, setFlipDirection] = useState("next");
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isZoomedQR, setIsZoomedQR] = useState(false);
+  const [paymentSettings, setPaymentSettings] = useState({
+    payment_qr_code: '/image.png',
+    payment_bank_name: 'State Bank of India',
+    payment_account_number: '123456789012',
+    payment_ifsc_code: 'SBIN0012345',
+    payment_account_holder: 'KRISHNA ENGINEERING COLLEGE',
+    payment_upi_id: 'kec@upi'
+  });
+
+  // Fetch courses dynamically for navbar submenu
+  const { data: dbCourses = [] } = useQuery({
+    queryKey: ['courses-menu'],
+    queryFn: async () => {
+      try {
+        const response = await courseService.getAll();
+        return Array.isArray(response.data) ? response.data : (response.data?.data || []);
+      } catch (err) {
+        console.error("Failed to load courses for menu:", err);
+        return [];
+      }
+    }
+  });
+
+  const dynamicSummerCourses = dbCourses
+    .filter(c => (c.department === "Summer Programs" || c.department === "Advanced Tech Programs") && c.is_active !== false)
+    .map(c => {
+      // Map icons dynamically
+      let icon = Zap;
+      if (c.icon === "Drone") icon = Drone;
+      else if (c.icon === "Car") icon = Car;
+      else if (c.icon === "Code2") icon = Code2;
+      else if (c.icon === "Zap") icon = Zap;
+      else if (c.icon === "Plug") icon = Plug;
+      else if (c.icon === "Code") icon = Code;
+
+      return {
+        name: c.title,
+        path: c.title.toLowerCase().includes("drone") 
+          ? "/drone" 
+          : c.title.toLowerCase().includes("ev") || c.title.toLowerCase().includes("electric")
+          ? "/ev" 
+          : c.title.toLowerCase().includes("charge")
+          ? "/charging"
+          : "/coding",
+        icon: icon,
+        description: c.description ? (c.description.substring(0, 45) + "...") : "Explore specialized course",
+        color: colors.neutral,
+      };
+    });
+
+  useEffect(() => {
+    const fetchPaymentSettings = async () => {
+      try {
+        const res = await settingsService.get();
+        if (res.data) {
+          setPaymentSettings(prev => ({ ...prev, ...res.data }));
+        }
+      } catch (err) {
+        console.error("Failed to load payment settings:", err);
+      }
+    };
+    fetchPaymentSettings();
+  }, []);
 
   // Refs for GSAP animations
   const menuRef = useRef(null);
@@ -65,17 +149,22 @@ const UniversityMenu = () => {
         }
       );
     } else {
-      // If section not found, navigate to home and then scroll
-      window.location.href = '/#news-events';
+      navigate('/#news-events');
     }
   };
 
-  // Update the News & Events menu item to use the scroll function
+  // Update the News & Events and Summer Courses menu items dynamically
   const updatedMainCategories = mainCategories.map(category => {
     if (category.name === "News & Events") {
       return {
         ...category,
         onClick: handleNewsEventsClick
+      };
+    }
+    if (category.name === "Summer Courses" && dynamicSummerCourses.length > 0) {
+      return {
+        ...category,
+        submenu: dynamicSummerCourses
       };
     }
     return category;
@@ -226,6 +315,41 @@ const UniversityMenu = () => {
                 ></div>
               </div>
             ))}
+
+            {/* Elegant 3D E-Brochure Book Button */}
+            <div className="w-px h-8 bg-gray-200 self-center hidden lg:block"></div>
+            <Link
+              to="/e-brochure"
+              className="flex items-center gap-3 p-2.5 rounded-xl border border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10 transition-all duration-300 group cursor-pointer shadow-sm hover:shadow-md hover:scale-105 hover:-translate-y-0.5 transform"
+            >
+              {/* Mini Book Graphic */}
+              <div className="relative w-8 h-10 bg-gradient-to-br from-blue-700 to-blue-900 rounded-r-md shadow-md border-l-4 border-amber-500 flex items-center justify-center transition-transform duration-500 group-hover:[transform:rotateY(15deg)] transform">
+                <BookOpen size={16} className="text-amber-400 group-hover:scale-110 transition-transform" />
+                {/* Book Pages effect */}
+                <div className="absolute right-0 top-0.5 bottom-0.5 w-0.5 bg-slate-100 rounded-r-sm opacity-80"></div>
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-[9px] font-bold text-amber-600 uppercase tracking-widest leading-none">Interactive</span>
+                <span className="text-xs font-extrabold text-blue-900 leading-snug group-hover:text-blue-700 transition-colors">3D Flipbook</span>
+                <span className="text-[8px] text-gray-500 leading-none">View Prospectus</span>
+              </div>
+            </Link>
+
+            {/* Elegant Online Payment Admission Fee Button */}
+            <div className="w-px h-8 bg-gray-200 self-center hidden lg:block"></div>
+            <button
+              onClick={() => setIsPaymentModalOpen(true)}
+              className="flex items-center gap-3 p-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10 text-emerald-700 transition-all duration-300 group cursor-pointer shadow-sm hover:shadow-md hover:scale-105 hover:-translate-y-0.5 transform"
+            >
+              <div className="relative w-8 h-10 bg-gradient-to-br from-emerald-600 to-teal-800 rounded-r-md shadow-md border-l-4 border-emerald-500 flex items-center justify-center transition-transform duration-500 group-hover:[transform:rotateY(15deg)] transform">
+                <QrCode size={16} className="text-white group-hover:scale-110 transition-transform" />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-widest leading-none">Admission Fee</span>
+                <span className="text-xs font-extrabold text-slate-800 leading-snug group-hover:text-emerald-700 transition-colors">Scan & Pay</span>
+                <span className="text-[8px] text-gray-500 leading-none">Online Payment</span>
+              </div>
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -570,7 +694,7 @@ const UniversityMenu = () => {
                           category.onClick({ preventDefault: () => {} });
                         } else {
                           closeAllMenus();
-                          window.location.href = category.path;
+                          navigate(category.path);
                         }
                       }}
                     >
@@ -657,6 +781,150 @@ const UniversityMenu = () => {
               <GraduationCap size={20} />
               Admissions Open 2026
             </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Stunning Interactive online payment details Modal Popup */}
+      {isPaymentModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-[9999] animate-fade-in">
+          <div className="bg-white border border-slate-100 rounded-[2.5rem] w-full max-w-3xl shadow-[0_24px_64px_rgba(0,0,0,0.18)] overflow-hidden relative animate-scale-up">
+            
+            {/* Modal Header */}
+            <div className="p-8 border-b border-slate-100 bg-gradient-to-r from-emerald-600 to-teal-800 text-white relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
+              
+              <div className="flex items-center justify-between relative z-10">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                    <QrCode className="w-8 h-8 text-white animate-pulse" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-black tracking-tight leading-none">Admission Fee Payment</h3>
+                    <p className="text-xs text-white/70 font-semibold mt-1.5 uppercase tracking-wider">Krishna Engineering College</p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setIsPaymentModalOpen(false)}
+                  className="p-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-all"
+                  aria-label="Close modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-8 space-y-6">
+              <div className="flex flex-col md:flex-row gap-8 items-stretch">
+                
+                {/* Bank details card */}
+                <div className="flex-1 space-y-4 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest mb-3 flex items-center gap-1.5">
+                      <Landmark className="w-4 h-4 text-emerald-600" />
+                      Direct Bank Transfer
+                    </h4>
+                    
+                    <div className="bg-slate-50 border border-slate-100 rounded-3xl p-5 space-y-3.5 shadow-inner">
+                      <div className="space-y-1">
+                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Bank Name</span>
+                        <p className="font-extrabold text-slate-800 text-base leading-none">{paymentSettings.payment_bank_name}</p>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="space-y-1">
+                          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Account Number</span>
+                          <p className="font-extrabold text-slate-800 text-sm tracking-wide leading-none">{paymentSettings.payment_account_number}</p>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">IFSC Code</span>
+                          <p className="font-extrabold text-slate-800 text-sm tracking-wide leading-none">{paymentSettings.payment_ifsc_code}</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-1 pt-1.5 border-t border-slate-200/50">
+                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Account Holder Name</span>
+                        <p className="font-extrabold text-slate-800 text-sm leading-none">{paymentSettings.payment_account_holder}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* UPI Details card */}
+                  <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-2xl p-4 flex items-center justify-between gap-4">
+                    <div>
+                      <span className="text-[9px] font-black text-emerald-600 uppercase tracking-widest">UPI Address</span>
+                      <p className="font-black text-slate-800 text-sm mt-0.5">{paymentSettings.payment_upi_id}</p>
+                    </div>
+                    <span className="text-[10px] font-black text-emerald-700 bg-emerald-500/10 px-2.5 py-1.5 rounded-lg border border-emerald-500/20">Active UPI</span>
+                  </div>
+                </div>
+
+                {/* QR Code scanning card */}
+                <div className="w-full md:w-80 shrink-0 bg-slate-50 border border-slate-100 rounded-3xl p-5 flex flex-col items-center justify-center text-center shadow-sm">
+                  <div 
+                    onClick={() => setIsZoomedQR(true)}
+                    className="w-64 h-[20rem] bg-white border border-slate-200 rounded-2xl p-2.5 mb-4 flex items-center justify-center overflow-hidden shadow-inner group cursor-pointer"
+                  >
+                    <img 
+                      src={paymentSettings.payment_qr_code} 
+                      alt="Scan to Pay QR" 
+                      className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                      onError={(e) => { e.target.src = '/image.png' }}
+                    />
+                  </div>
+                  <h5 className="font-black text-slate-800 text-xs tracking-tight uppercase leading-none">Instant QR Scan</h5>
+                  <p className="text-[10px] text-slate-400 font-semibold mt-2">Scan QR code through GPay, PhonePe, BHIM, or Paytm app to pay directly.</p>
+                </div>
+
+              </div>
+
+              {/* Secure payment protection label */}
+              <div className="flex items-center gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <Shield className="w-5 h-5 text-emerald-600 shrink-0" />
+                <div className="text-[11px] text-slate-500 font-semibold leading-relaxed">
+                  After successful transaction, please save the payment screenshot / transaction ID and upload it in the centralized registration portal while submitting your online enrollment application.
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-8 py-4 border-t border-slate-100 bg-slate-50 text-center flex items-center justify-center gap-2">
+              <Clock className="w-4 h-4 text-slate-400" />
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Centralized Payment Portal • KEC Bhilai</span>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* Stunning Zoomed QR Code Modal Overlay for Maximum Scanability */}
+      {isZoomedQR && (
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-[99999] animate-fade-in">
+          <div className="relative max-w-sm sm:max-w-md w-full flex flex-col items-center justify-center bg-white rounded-[2rem] p-6 shadow-2xl animate-scale-up">
+            <button
+              onClick={() => setIsZoomedQR(false)}
+              className="absolute top-4 right-4 p-2 bg-slate-900/10 hover:bg-slate-900/20 text-slate-800 rounded-full transition-all z-10 cursor-pointer"
+              aria-label="Close zoomed QR"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="w-full aspect-[3/4] bg-white border border-slate-100 rounded-2xl p-3 flex items-center justify-center overflow-hidden shadow-inner mt-4">
+              <img
+                src={paymentSettings.payment_qr_code}
+                alt="Zoomed Payment QR placard"
+                className="w-full h-full object-contain rounded-xl"
+                onError={(e) => { e.target.src = '/image.png' }}
+              />
+            </div>
+            
+            <h4 className="text-sm font-black text-slate-800 uppercase tracking-wider text-center mt-5 leading-none">
+              Admission Payment QR Code
+            </h4>
+            <p className="text-[10px] text-slate-400 font-semibold text-center mt-2">
+              Scan directly from screen using a secondary device, or save screenshot to pay using your local UPI application.
+            </p>
           </div>
         </div>
       )}

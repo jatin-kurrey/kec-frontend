@@ -351,8 +351,12 @@ const EnhancedFacilities = () => {
           )}
         </div>
 
-        {/* Additional Information Section */}
-        {infrastructure.length > 0 && (
+        {/* World-Class Infrastructure Section (from DB or fallback) */}
+        {(infrastructure.length > 0 ? infrastructure : [
+          { name: 'Central Library', description: 'Extensive collection of books, journals, and digital resources with NPTEL facility', icon: 'Library' },
+          { name: 'Computing Facilities', description: 'High-speed internet with Wi-Fi connectivity across campus and computer labs', icon: 'Cpu' },
+          { name: 'Safety & Security', description: '24/7 security, CCTV surveillance, and fire safety systems throughout campus', icon: 'Shield' },
+        ]).length > 0 && (
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl p-10 mb-12 text-white">
             <h2 className="text-3xl font-bold mb-2 text-center">World-Class Infrastructure</h2>
             <p className="text-blue-100 text-center mb-10 max-w-3xl mx-auto">
@@ -360,10 +364,14 @@ const EnhancedFacilities = () => {
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {infrastructure.map((item, idx) => {
+              {(infrastructure.length > 0 ? infrastructure : [
+                { id: 'lib', name: 'Central Library', description: 'Extensive collection of books, journals, and digital resources with NPTEL facility', icon: 'Library' },
+                { id: 'cpu', name: 'Computing Facilities', description: 'High-speed internet with Wi-Fi connectivity across campus and computer labs', icon: 'Cpu' },
+                { id: 'shld', name: 'Safety & Security', description: '24/7 security, CCTV surveillance, and fire safety systems throughout campus', icon: 'Shield' },
+              ]).map((item, idx) => {
                 const Icon = getIcon(item.icon);
                 return (
-                  <div key={idx} className="text-center p-6 bg-white bg-opacity-10 rounded-2xl backdrop-blur-sm">
+                  <div key={item.id || idx} className="text-center p-6 bg-white bg-opacity-10 rounded-2xl backdrop-blur-sm">
                     <div className="inline-flex items-center justify-center p-4 rounded-2xl bg-white bg-opacity-20 mb-5">
                       <Icon className="h-10 w-10 text-white" />
                     </div>

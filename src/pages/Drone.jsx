@@ -1,209 +1,129 @@
-import React, { useState } from 'react';
-import { Drone, CheckCircle } from 'lucide-react';
-import { applicationService } from "../api";
+import React from 'react';
+import { Drone, CheckCircle, Clock, BookOpen, Award, Shield, ArrowRight } from 'lucide-react';
 
-const DroneTechnologyRegistration = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    courseLevel: 'beginner',
-    department: '',
-    semester: ''
-  });
-
-  // ... (courseLevels stays same)
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const payload = {
-        form_type: "DRONE_COURSE",
-        name: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        data: {
-          course_level: formData.courseLevel,
-          department: formData.department,
-          semester: formData.semester
-        }
-      };
-      
-      await applicationService.submit(payload);
-      alert('Registration submitted successfully! We will contact you soon.');
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        courseLevel: 'beginner',
-        department: '',
-        semester: ''
-      });
-    } catch (error) {
-      console.error("Submission Error:", error);
-      alert("Something went wrong. Please try again later.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+const DroneTechnologyPage = () => {
+  const handleEnroll = () => {
+    const SUPER40_URL = import.meta.env.VITE_SUPER40_URL || 'http://localhost:5174';
+    window.location.href = `${SUPER40_URL}/enroll/drone`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-100 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50/30 to-slate-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
 
-        {/* Centered Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-red-500 rounded-full">
-              <Drone className="w-8 h-8 text-white" />
-            </div>
-            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Drone Technology Course</h1>
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-red-500/10 text-red-600 px-4 py-2 rounded-full text-sm font-semibold mb-6 border border-red-500/20">
+            <Drone className="w-4 h-4 animate-bounce" />
+            Specialized Summer Program
           </div>
-          <p className="text-lg text-gray-600">Master aerial photography and autonomous flight systems</p>
+          <h1 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight mb-4">
+            Drone Technology & Autonomous Flight
+          </h1>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            Master drone assembly, flight simulation, aerial mapping, and autonomous flight programming in our state-of-the-art center.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Side - Image */}
-          <div className="">
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          {/* Left Columns - Course Details */}
+          <div className="lg:col-span-7 space-y-8">
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
               <img 
                 src="/courses/droneCourse.jpg"
-                alt="Drone Technology"
-                className="w-full h-full object-cover"
+                alt="Drone Technology Training"
+                className="w-full h-80 object-cover"
               />
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">What You Will Learn</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    "Hands-on drone assembly workshop",
+                    "Flight simulator & piloting sessions",
+                    "Aerial mapping & photography",
+                    "Autonomous mission planning",
+                    "DGCA regulations & safety rules",
+                    "Python programming for flight control"
+                  ].map((feat, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                      <span className="text-slate-600 text-sm font-medium">{feat}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { label: "Duration", val: "4 Weeks", icon: Clock },
+                { label: "Level", val: "Beginner+", icon: BookOpen },
+                { label: "Certificate", val: "KEC Certified", icon: Award }
+              ].map((stat, i) => (
+                <div key={i} className="bg-white p-5 rounded-2xl border border-slate-100 text-center shadow-sm">
+                  <stat.icon className="w-6 h-6 text-red-500 mx-auto mb-2" />
+                  <div className="text-xs text-slate-500 uppercase tracking-wider font-bold">{stat.label}</div>
+                  <div className="text-base font-extrabold text-slate-800 mt-1">{stat.val}</div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right Side - Simple Registration Form */}
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Register Now</h2>
-              <p className="text-gray-600">Join our drone technology course today</p>
+          {/* Right Columns - Enrollment CTA Card */}
+          <div className="lg:col-span-5">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 border border-slate-100 sticky top-28">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-red-500/10 rounded-2xl">
+                  <Shield className="w-6 h-6 text-red-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">Secure Enrollment</h3>
+                  <p className="text-xs text-slate-500">Managed via Super40 Portal</p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                  <h4 className="font-bold text-slate-800 text-sm uppercase tracking-wider mb-3">Program Admission Status</h4>
+                  <ul className="space-y-3 text-slate-600 text-sm">
+                    <li className="flex items-center justify-between">
+                      <span>Total Seats:</span>
+                      <span className="font-bold text-slate-800">40 Seats Only</span>
+                    </li>
+                    <li className="flex items-center justify-between">
+                      <span>Selection Mode:</span>
+                      <span className="font-bold text-slate-800">First Come, First Served</span>
+                    </li>
+                    <li className="flex items-center justify-between">
+                      <span>Fee structure:</span>
+                      <span className="font-bold text-slate-800">See Details in Portal</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="text-slate-600 text-sm leading-relaxed">
+                  To maintain absolute transparency and control over registration windows, seat allocations, and dates, all student enrollments for KEC Summer Programs are processed exclusively through our centralized <strong className="text-slate-800 font-bold">Super40 Portal</strong>.
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleEnroll}
+                  className="w-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white py-4 px-6 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-red-500/20 hover:shadow-xl hover:shadow-red-500/30 transform hover:-translate-y-0.5"
+                >
+                  <span>Go to Enrollment Portal</span>
+                  <ArrowRight className="w-5 h-5 animate-pulse" />
+                </button>
+              </div>
             </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Full Name */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  placeholder="Enter your full name"
-                  required
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  placeholder="Enter your email"
-                  required
-                />
-              </div>
-
-              {/* Phone */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  placeholder="Enter your phone number"
-                  required
-                />
-              </div>
-
-             
-
-              {/* Department and Semester */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Department
-                  </label>
-                  <select
-                    name="department"
-                    value={formData.department}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  >
-                    <option value="">Select Department</option>
-                    <option value="mechanical">Mechanical Engineering</option>
-                    <option value="electrical">Electrical Engineering</option>
-                    <option value="computer">Computer Science</option>
-                    <option value="civil">Civil Engineering</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Semester
-                  </label>
-                  <select
-                    name="semester"
-                    value={formData.semester}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  >
-                    <option value="">Select Semester</option>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map(sem => (
-                      <option key={sem} value={sem}>Semester {sem}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-red-600 text-white py-4 px-6 rounded-xl font-semibold hover:bg-red-700 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                   <span>Registering...</span>
-                ) : (
-                  <>
-                    <CheckCircle className="w-5 h-5" />
-                    Register for Course
-                  </>
-                )}
-              </button>
-              
-            </form>
           </div>
+
         </div>
+
       </div>
     </div>
   );
 };
 
-export default DroneTechnologyRegistration;
+export default DroneTechnologyPage;

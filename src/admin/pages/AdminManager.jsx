@@ -22,7 +22,7 @@ import {
   FileText,
   Loader2
 } from 'lucide-react';
-import { adminAccountService, settingsService, uploadService } from '../../api';
+import { adminAccountService, settingsService, uploadService, contentService } from '../../api';
 
 const AdminManager = () => {
   const [activeTab, setActiveTab] = useState('accounts'); // 'accounts' or 'profile'
@@ -77,7 +77,13 @@ const AdminManager = () => {
     super40_brochure_url: '',
     super40_total_marks: '180',
     super40_duration_hours: '3',
-    super40_question_type: 'MCQ'
+    super40_question_type: 'MCQ',
+    payment_qr_code: '/image.png',
+    payment_bank_name: 'State Bank of India',
+    payment_account_number: '123456789012',
+    payment_ifsc_code: 'SBIN0012345',
+    payment_account_holder: 'KRISHNA ENGINEERING COLLEGE',
+    payment_upi_id: 'kec@upi'
   });
 
   const [settingsLoading, setSettingsLoading] = useState(false);
@@ -275,6 +281,27 @@ const AdminManager = () => {
       setUploadSuccess('Brochure uploaded successfully!');
     } catch (err) {
       setUploadError('Failed to upload brochure. Please try again.');
+    } finally {
+      setUploadLoading(false);
+    }
+  };
+
+  const handleQrUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploadLoading(true);
+    setUploadError('');
+    setUploadSuccess('');
+    try {
+      const response = await uploadService.upload(file);
+      const url = response.data.url;
+      // Get the correct base url or absolute path
+      const activeUrl = url.startsWith('http') ? url : `${contentService.getBaseUrl()}${url}`;
+      setSystemSettings(prev => ({ ...prev, payment_qr_code: activeUrl }));
+      setUploadSuccess('QR Code uploaded successfully!');
+    } catch (err) {
+      setUploadError('Failed to upload QR Code. Please try again.');
     } finally {
       setUploadLoading(false);
     }
@@ -811,6 +838,120 @@ const AdminManager = () => {
                 </div>
                 {uploadError && <p className="text-xs font-bold text-red-600 mt-1">{uploadError}</p>}
                 {uploadSuccess && <p className="text-xs font-bold text-emerald-600 mt-1">{uploadSuccess}</p>}
+              </div>
+
+              {/* Payment Details Section */}
+              <div className="space-y-4 pt-4 border-t border-slate-100">
+                <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-600" />
+                  Course Fee Payment & Bank Details
+                </h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Text Details */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Bank Name</label>
+                      <input
+                        type="text"
+                        name="payment_bank_name"
+                        value={systemSettings.payment_bank_name || ''}
+                        onChange={handleSettingChange}
+                        className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white text-sm text-slate-900 font-bold"
+                        placeholder="e.g. State Bank of India"
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Account Number</label>
+                        <input
+                          type="text"
+                          name="payment_account_number"
+                          value={systemSettings.payment_account_number || ''}
+                          onChange={handleSettingChange}
+                          className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white text-sm text-slate-900 font-bold"
+                          placeholder="e.g. 100029374927"
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">IFSC Code</label>
+                        <input
+                          type="text"
+                          name="payment_ifsc_code"
+                          value={systemSettings.payment_ifsc_code || ''}
+                          onChange={handleSettingChange}
+                          className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white text-sm text-slate-900 font-bold"
+                          placeholder="e.g. SBIN0001234"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Account Holder Name</label>
+                      <input
+                        type="text"
+                        name="payment_account_holder"
+                        value={systemSettings.payment_account_holder || ''}
+                        onChange={handleSettingChange}
+                        className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white text-sm text-slate-900 font-bold"
+                        placeholder="e.g. KRISHNA ENGINEERING COLLEGE"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest">UPI ID</label>
+                      <input
+                        type="text"
+                        name="payment_upi_id"
+                        value={systemSettings.payment_upi_id || ''}
+                        onChange={handleSettingChange}
+                        className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:bg-white text-sm text-slate-900 font-bold"
+                        placeholder="e.g. kec@upi"
+                      />
+                    </div>
+                  </div>
+
+                  {/* QR Code Upload & Preview */}
+                  <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100 flex flex-col items-center justify-center text-center">
+                    <h5 className="font-bold text-slate-800 text-sm mb-4">Payment QR Code</h5>
+                    
+                    <div className="w-40 h-40 bg-white border border-slate-200 rounded-2xl p-2 mb-4 flex items-center justify-center overflow-hidden shadow-sm">
+                      <img 
+                        src={systemSettings.payment_qr_code || '/image.png'} 
+                        alt="Payment QR" 
+                        className="max-w-full max-h-full object-contain"
+                        onError={(e) => { e.target.src = '/image.png' }}
+                      />
+                    </div>
+
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="kec-payment-qr-file"
+                      className="hidden"
+                      onChange={handleQrUpload}
+                    />
+                    <label
+                      htmlFor="kec-payment-qr-file"
+                      className="px-6 py-3.5 bg-white border border-slate-200 hover:border-blue-900 rounded-xl text-xs font-black uppercase tracking-wider text-slate-700 hover:text-blue-900 cursor-pointer flex items-center justify-center gap-2 shadow-sm"
+                    >
+                      {uploadLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin text-blue-900" />
+                          Uploading QR...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-4 h-4" />
+                          Upload QR Image
+                        </>
+                      )}
+                    </label>
+                    <p className="text-[10px] text-slate-400 mt-2 font-semibold">Recommended size: Square (e.g. 500x500 px)</p>
+                  </div>
+                </div>
               </div>
 
               {/* Lists */}

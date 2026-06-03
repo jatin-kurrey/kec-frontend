@@ -11,6 +11,8 @@ import {
   GraduationCap,
   Building,
   Users,
+  Download,
+  FileText,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { contentService } from "../api";
@@ -215,13 +217,28 @@ const Notice = () => {
                       </div>
                     </div>
                     
-                    <motion.a
-                      whileHover={{ x: 5 }}
-                      href={notice.link}
-                      className="text-blue-600 font-medium flex items-center gap-1 hover:underline"
-                    >
-                      Read more <ArrowRight size={16} />
-                    </motion.a>
+                    <div className="flex items-center gap-3">
+                      {notice.attachment_url && (
+                        <motion.a
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          href={notice.attachment_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-medium hover:bg-green-200 transition-colors"
+                        >
+                          <Download size={14} />
+                          PDF
+                        </motion.a>
+                      )}
+                      <motion.a
+                        whileHover={{ x: 5 }}
+                        href={notice.link || '#'}
+                        className="text-blue-600 font-medium flex items-center gap-1 hover:underline text-sm"
+                      >
+                        Read more <ArrowRight size={16} />
+                      </motion.a>
+                    </div>
                   </div>
                 </div>
               </motion.div>

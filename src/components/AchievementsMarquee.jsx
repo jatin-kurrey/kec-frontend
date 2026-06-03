@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Users, BookOpen, Trophy, Globe, GraduationCap, Building, Target, BarChart3, Briefcase, TrendingUp, Clock, Calendar, Award, Star } from "lucide-react";
+import AnimatedCounter from "./AnimatedCounter";
+import { useQuery } from "@tanstack/react-query";
+import { placementService } from "../api";
 
 const CollegeDashboard = () => {
   const [counters, setCounters] = useState({
@@ -11,6 +14,26 @@ const CollegeDashboard = () => {
 
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+
+  // Tanstack queries for dynamic stats & recruiters
+  const { data: dbStats = [] } = useQuery({
+    queryKey: ['placement-stats-marquee'],
+    queryFn: async () => {
+      const response = await placementService.getStats();
+      return response.data?.data || [];
+    }
+  });
+
+  const { data: dbRecruiters = [] } = useQuery({
+    queryKey: ['recruiters-marquee'],
+    queryFn: async () => {
+      const response = await placementService.getRecruiters();
+      return response.data?.data || [];
+    }
+  });
+
+  const rateStat = dbStats.find(s => s.label === "placementRate");
+  const avgPkgStat = dbStats.find(s => s.label === "averagePackage");
 
   const stats = [
     { 
@@ -60,139 +83,100 @@ const CollegeDashboard = () => {
   ];
 
   const achievements = [
-  {
-    icon: Trophy,
-    title: "Research Grants",
-    value: "₹1.2 Cr",
-    subtitle: "Annual Funding",
-    color: "from-blue-500 to-blue-600",
-  },
-  {
-    icon: Globe,
-    title: "Industry Tie-ups",
-    value: "25+",
-    subtitle: "MoUs with Companies",
-    color: "from-green-500 to-green-600",
-  },
-  {
-    icon: Target,
-    title: "Placement Rate",
-    value: "82%",
-    subtitle: "2024 Batch",
-    color: "from-orange-500 to-orange-600",
-  },
-  {
-    icon: BarChart3,
-    title: "Alumni Network",
-    value: "10K+",
-    subtitle: "Across India",
-    color: "from-yellow-500 to-yellow-600",
-  },
-  {
-    icon: Clock,
-    title: "Average Package",
-    value: "₹4.8 LPA",
-    subtitle: "2024 Placements",
-    color: "from-red-500 to-red-600",
-  },
-  {
-    icon: Calendar,
-    title: "Years Established",
-    value: "41",
-    subtitle: "Since 1984",
-    color: "from-purple-500 to-purple-600",
-  },
-];
-
-
-  const placementStats = [
     {
-      company: "Codenicely",
-      hires: 90,
-      package: "6 LPA",
-      trend: "+10%",
-      logo: "C",
-      color: "bg-blue-500",
-      icon: TrendingUp,
+      icon: Trophy,
+      title: "Research Grants",
+      value: "₹1.2 Cr",
+      subtitle: "Annual Funding",
+      color: "from-blue-500 to-blue-600",
     },
     {
-      company: "Sthanve Software",
-      hires: 85,
-      package: "5 LPA",
-      trend: "+8%",
-      logo: "S",
-      color: "bg-green-500",
+      icon: Globe,
+      title: "Industry Tie-ups",
+      value: "25+",
+      subtitle: "MoUs with Companies",
+      color: "from-green-500 to-green-600",
+    },
+    {
       icon: Target,
+      title: "Placement Rate",
+      value: rateStat ? rateStat.value : "82%",
+      subtitle: "2024 Batch",
+      color: "from-orange-500 to-orange-600",
     },
     {
-      company: "Augtech Nextwealth",
-      hires: 50,
-      package: "7 LPA",
-      trend: "+12%",
-      logo: "A",
-      color: "bg-orange-500",
-      icon: Star,
-    },
-    {
-      company: "Gravity Engineering Services",
-      hires: 20,
-      package: "6.5 LPA",
-      trend: "+7%",
-      logo: "G",
-      color: "bg-yellow-500",
       icon: BarChart3,
+      title: "Alumni Network",
+      value: "10K+",
+      subtitle: "Across India",
+      color: "from-yellow-500 to-yellow-600",
     },
     {
-      company: "IB Group",
-      hires: 12,
-      package: "5.5 LPA",
-      trend: "+6%",
-      logo: "I",
-      color: "bg-blue-600",
-      icon: TrendingUp,
+      icon: Clock,
+      title: "Average Package",
+      value: avgPkgStat ? `₹${avgPkgStat.value}` : "₹4.8 LPA",
+      subtitle: "2024 Placements",
+      color: "from-red-500 to-red-600",
     },
     {
-      company: "Avinash Builders",
-      hires: 18,
-      package: "4.5 LPA",
-      trend: "+5%",
-      logo: "A",
-      color: "bg-red-500",
-      icon: Award,
+      icon: Calendar,
+      title: "Years Established",
+      value: "41",
+      subtitle: "Since 1984",
+      color: "from-purple-500 to-purple-600",
     },
   ];
-  
 
-  const topRecruiters = [
-    {
-      name: "Codenicely",
-      hires: 5,
-      color: "bg-blue-500",
-      progress: 100, // max hires
-    },
-    {
-      name: "Sthanve Software",
-      hires: 4,
-      color: "bg-green-500",
-      progress: 80,
-    },
-    {
-      name: "Augtech Nextwealth",
-      hires: 3,
-      color: "bg-orange-500",
-      progress: 60,
-    },
-  ];
+  const placementStats = dbRecruiters && dbRecruiters.length > 0
+    ? dbRecruiters.slice(0, 6).map((r, index) => {
+        const colors = ["bg-blue-500", "bg-green-500", "bg-orange-500", "bg-yellow-500", "bg-blue-600", "bg-red-500"];
+        const packageValues = ["6 LPA", "5 LPA", "7 LPA", "6.5 LPA", "5.5 LPA", "4.5 LPA"];
+        const trendValues = ["+10%", "+8%", "+12%", "+7%", "+6%", "+5%"];
+        const icons = [TrendingUp, Target, Star, BarChart3, TrendingUp, Award];
+        const hiresValues = [90, 85, 50, 20, 12, 18];
+        return {
+          company: r.name,
+          hires: hiresValues[index] || 15,
+          package: packageValues[index] || "5 LPA",
+          trend: trendValues[index] || "+5%",
+          logo: r.name.substring(0, 1),
+          color: colors[index] || "bg-blue-500",
+          icon: icons[index] || TrendingUp,
+        };
+      })
+    : [
+        { company: "Codenicely", hires: 90, package: "6 LPA", trend: "+10%", logo: "C", color: "bg-blue-500", icon: TrendingUp },
+        { company: "Sthanve Software", hires: 85, package: "5 LPA", trend: "+8%", logo: "S", color: "bg-green-500", icon: Target },
+        { company: "Augtech Nextwealth", hires: 50, package: "7 LPA", trend: "+12%", logo: "A", color: "bg-orange-500", icon: Star },
+        { company: "Gravity Engineering Services", hires: 20, package: "6.5 LPA", trend: "+7%", logo: "G", color: "bg-yellow-500", icon: BarChart3 },
+        { company: "IB Group", hires: 12, package: "5.5 LPA", trend: "+6%", logo: "I", color: "bg-blue-600", icon: TrendingUp },
+        { company: "Avinash Builders", hires: 18, package: "4.5 LPA", trend: "+5%", logo: "A", color: "bg-red-500", icon: Award },
+      ];
+
+  const topRecruiters = dbRecruiters && dbRecruiters.length > 0
+    ? dbRecruiters.slice(0, 3).map((r, index) => {
+        const colors = ["bg-blue-500", "bg-green-500", "bg-orange-500"];
+        const progressValues = [100, 80, 60];
+        const hiresValues = [5, 4, 3];
+        return {
+          name: r.name,
+          hires: hiresValues[index] || 2,
+          color: colors[index] || "bg-blue-500",
+          progress: progressValues[index] || 40,
+        };
+      })
+    : [
+        { name: "Codenicely", hires: 5, color: "bg-blue-500", progress: 100 },
+        { name: "Sthanve Software", hires: 4, color: "bg-green-500", progress: 80 },
+        { name: "Augtech Nextwealth", hires: 3, color: "bg-orange-500", progress: 60 },
+      ];
   
 
   // Scroll detection
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect(); // Stop observing once triggered
-        }
+        setIsVisible(entry.isIntersecting);
       },
       { threshold: 0.3 } // Trigger when 30% of component is visible
     );
@@ -261,31 +245,8 @@ const CollegeDashboard = () => {
   };
 
   const Counter = ({ value, suffix = "" }) => {
-    const [count, setCount] = useState(0);
-    
-    useEffect(() => {
-      if (!isVisible) return;
-      
-      if (typeof value === 'number') {
-        let start = 0;
-        const end = value;
-        const duration = 2000;
-        const increment = end / (duration / 16);
-        
-        const timer = setInterval(() => {
-          start += increment;
-          if (start >= end) {
-            start = end;
-            clearInterval(timer);
-          }
-          setCount(Math.floor(start));
-        }, 16);
-
-        return () => clearInterval(timer);
-      }
-    }, [value, isVisible]);
-
-    return <span>{typeof value === 'number' ? count.toLocaleString() + suffix : value}</span>;
+    const combinedValue = typeof value === 'number' ? `${value}${suffix}` : value;
+    return <AnimatedCounter value={combinedValue} />;
   };
 
   return (
